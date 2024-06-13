@@ -1,0 +1,153 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('intro.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+header {
+    background-color: rgba(51, 51, 51, 0.8);
+    color: white;
+    padding: 1em 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1em;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    padding: 2em;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    margin: 2em auto;
+    max-width: 800px;
+}
+
+#blogs {
+    margin-top: 2em;
+}
+
+.blog-post {
+    background: white;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.blog-post h3 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.blog-post img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1em;
+}
+
+#about, #contact {
+    margin-top: 2em;
+    background: white;
+    padding: 2em;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 1em 0;
+    background: rgba(51, 51, 51, 0.8);
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+#pagination {
+    text-align: center;
+    margin-top: 1em;
+}
+
+#pagination button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pagination span {
+    font-size: 1.2em;
+}
+#filter-buttons {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+#filter-buttons button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+#filter-buttons button.active {
+    background-color: #666;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 1em;
+}
+
+#pagination button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+#pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#pagination span {
+    font-size: 1.2em;
+}
+a {
+    color: #000; /* 設置連結的文字顏色為黑色 */
+    text-decoration: none; /* 移除連結的下劃線 */
+}
+
+a:hover {
+    color: #666; /* 當鼠標懸停在連結上時，改變文字顏色 */
+}
