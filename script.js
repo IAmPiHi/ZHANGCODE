@@ -4,7 +4,7 @@ let currentCategory = 'all'; // 當前選擇的分類
 
   
 const blogs = [
-    { title: "MySQL資料庫運用", link: "https://docs.google.com/document/d/1", desc: "MySQL基本運用，並用WINDOWS FORM和其作配合。", img: "blog1.jpg", category: 'none' },
+    { title: "MySQL資料庫運用", link: "https://sites.google.com/view/zhangcode-database/%E9%A6%96%E9%A0%81?authuser=2", desc: "MySQL基本運用，並用WINDOWS FORM和其作配合。", img: "blog1.jpg", category: 'none' },
     
     
     // 添加更多網誌數據 cpp csharp none python
