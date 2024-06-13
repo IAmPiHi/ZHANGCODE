@@ -7,7 +7,7 @@ const blogs = [
     { title: "MySQL資料庫運用", link: "https://docs.google.com/document/d/1", desc: "MySQL基本運用，並用WINDOWS FORM和其作配合。", img: "blog1.jpg", category: 'none' },
     
     
-    // 添加更多網誌數據 cpp csharp none
+    // 添加更多網誌數據 cpp csharp none python
 ];
 
 function displayBlogs(page) {
@@ -27,6 +27,9 @@ function displayBlogs(page) {
                 case "csharp":
                 typename = "C#";
                 break;
+                case "python":
+                typename = "Python";
+                break;
                 case "none":
                 typename = "不分語言類";
                 break;
@@ -35,7 +38,7 @@ function displayBlogs(page) {
     if (filteredBlogs.length === 0) {
        
             blogContainer.innerHTML = `
-                <h1 style="background-color:gray;">篩選: ${typename}</h1> <p>暫時沒有該分類文章</p>
+                <h1 style="background-color:gray;">篩選: ${typename}</h1> <p>暫無該分類的文章!</p>
             `;
         
     } else {
@@ -79,11 +82,23 @@ function filterBlogs(category) {
 
     const buttons = document.querySelectorAll('#filter-buttons button');
     buttons.forEach(button => {
+        button.classList.remove('active');
         if (button.textContent === category.toUpperCase() || (category === 'all' && button.textContent === '全部')) {
             button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
+        } 
+        if (button.textContent === category.toUpperCase() || (category === 'cpp' && button.textContent === 'C++')) {
+            button.classList.add('active');
+        } 
+        if (button.textContent === category.toUpperCase() || (category === 'csharp' && button.textContent === 'C#')) {
+            button.classList.add('active');
+        } 
+        if (button.textContent === category.toUpperCase() || (category === 'python' && button.textContent === 'Python')) {
+            button.classList.add('active');
+        } 
+        if (button.textContent === category.toUpperCase() || (category === 'none' && button.textContent === '不分語言')) {
+            button.classList.add('active');
+        } 
+        
     });
 }
 
