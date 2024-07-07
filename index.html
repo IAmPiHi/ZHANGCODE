@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>ZhangCode</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="LOGO2.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <h1><font face="Consolas"><span class="typing-text">ZhangCode</span></font></h1>
+        <nav>
+            <ul>
+                <li><a href="#">首頁</a></li>
+                <li><a href="#about">關於</a></li>
+                <li><a href="#blogs">內容</a></li>
+                <li><a href="#contact">聯絡版主</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="intro">
+            <h2>歡迎來到ZhangCode</h2>
+            <p>我把筆記放到這，歡迎你隨便看看吧。</p>
+        </section>
+        <section id="about">
+            <h2>關於這個網站</h2>
+            <p>我是一個即將升大學的程式設計愛好者。<br>我會把我做的程式筆記彙整在這裡，順便分享給所有人。<br>希望我的筆記能對大家有所幫助！  : )<br>如果想要更新網頁可以使用 CTRL + F5 以確保獲取最新資訊!<br><br><hr><br><br>
+            <img src="about.jpg" alt="關於我們圖片"  style="display:block; margin:auto;" >
+        </section>
+        <section id="blogs">
+            <h2>最新內容</h2>
+            <div id="filter-buttons">
+                <button onclick="filterBlogs('all')">全部</button>
+                <button onclick="filterBlogs('csharp')">C#</button>
+                <button onclick="filterBlogs('cpp')">C++</button>
+                <button onclick="filterBlogs('python')">Python</button>
+                <button onclick="filterBlogs('none')">不分語言</button>
+            </div>
+            <div id="blog-container"></div>
+            <div id="pagination">
+                <button id="prev-page" onclick="changePage(-1)">上一頁</button>
+                <span id="page-info"></span>
+                <button id="next-page" onclick="changePage(1)">下一頁</button>
+            </div>
+        </section>
+        <section id="contact">
+            <h2>聯絡版主</h2>
+            <p>如果有任何錯誤，或是問題。</p>
+            <p>請發送電子郵件到 <bold>0710ringe@gmail.com</bold></p>
+            <p>注意:我不一定會看到，所以在等待的過程中先去做其他事吧。</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ZHANGCODE. BY.張家銘</p>
+    </footer>
+    <script src="allpost.js"></script>
+    <script src="script.js"></script>
+    <script>filterBlogs('all');</script>
+    
+</body>
+</html>
