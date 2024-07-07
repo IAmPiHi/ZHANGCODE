@@ -134,7 +134,7 @@ main {
 
         opacity: 1;
         transform: translateY(0px); /* 初始状态为稍微向下偏移 */ 
-        transition: opacity 1s ease-out, transform 1.2s ease-out; /* 过渡效果 */
+        transition: opacity 1s ease-out, transform 1s ease-out; /* 过渡效果 */
         
         
     }
@@ -143,7 +143,7 @@ main {
 
     opacity: 1;
     transform: translateX(0px); /* 初始状态为稍微向下偏移 */ 
-    transition: opacity 1s ease-out, transform 1.2s ease-out; /* 过渡效果 */
+    transition: opacity 1s ease-out, transform 1s ease-out; /* 过渡效果 */
     
     
 }
