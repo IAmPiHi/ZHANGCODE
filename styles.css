@@ -102,6 +102,9 @@ main {
         transform: translateY(0px);
         transition: opacity 1s ease-out, transform 1s ease-out;
     }
+    #theme-toggle-container {
+    opacity: 0;
+}
 }
 
 .blog-post.visible {
