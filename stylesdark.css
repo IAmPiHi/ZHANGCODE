@@ -2,22 +2,24 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('intro.jpg') no-repeat center center fixed;
+    background: url('introdk.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #333;
 }
 
 header {
     background-color: rgba(51, 51, 51, 0.8);
-    color: white;
+    color: rgb(211, 211, 211);
     padding: 1em 0;
     text-align: center;
 }
 
 header h1 {
     margin: 0;
-    color: rgb(112, 211, 112);
+    color: rgb(79, 156, 79);
+    
 }
+
 
 .typing-text {
     display: inline-block;
@@ -26,13 +28,30 @@ header h1 {
     border-right: 0.12em solid rgb(135, 133, 133);
     animation: typing 2s steps(10, end) 1s 1 normal both, blink 0.75s step-end infinite;
 }
+.typing-text2 {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    
+    animation: typing2 3s steps(8, end) 3s 1 normal both, blink 0.75s step-end infinite 3s;
+}
 
 @keyframes typing {
+    
     from {
         width: 0;
     }
     to {
         width: 10ch;
+    }
+}
+@keyframes typing2 {
+    
+    from {
+        width: 0;
+    }
+    to {
+        width: 14.15ch;
     }
 }
 
@@ -45,9 +64,23 @@ header h1 {
     }
 }
 
+
+
+@keyframes goin {
+    from {
+        transform: translateY(100px); /* 初始状态为稍微向下偏移 */ ;
+        opacity: 0;
+    }
+     to {
+        transform: translateY(0px); /* 初始状态为稍微向下偏移 */ ;
+        opacity: 1;
+    }
+}
+
+
 ul li a:hover {
     font-size: 25px;
-    color: rgb(250, 159, 234);
+    color: rgb(198, 87, 178);
 }
 
 nav ul {
@@ -61,57 +94,70 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: rgb(211, 211, 211);
     text-decoration: none;
 }
 
 main {
     padding: 2em;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(18, 18, 18, 0.8);
     border-radius: 10px;
     margin: 2em auto;
     max-width: 800px;
+   color: rgb(211, 211, 211)
+    
 }
 
 #blogs {
     margin-top: 2em;
+    
 }
 
 .blog-post {
-    background: white;
+    background: rgb(35, 35, 35);
     padding: 1em;
     margin-bottom: 1em;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateX(150px);
+    box-shadow: 0 0 10px rgba(208, 203, 203, 0.327);
+    opacity: 0; /* 初始状态为不可见 */
+    transform: translateX(150px); /* 初始状态为稍微向下偏移 */
+    
 }
+.blog-post a{
+    color: rgb(211, 211, 211);
 
+}
 @media screen and (max-width:640px) {
     .blog-post {
-        background: white;
+        background: rgb(35, 35, 35);
         padding: 1em;
         margin-bottom: 1em;
         border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        opacity: 0;
-        transform: translateY(100px);
+        box-shadow: 0 0 10px rgba(230, 229, 229, 0.371);
+        opacity: 0; /* 初始状态为不可见 */
+        transform: translateY(100px); /* 初始状态为稍微向下偏移 */
+        color: rgb(211, 211, 211);
     }
     .blog-post.visible {
+
         opacity: 1;
-        transform: translateY(0px);
-        transition: opacity 1s ease-out, transform 1s ease-out;
+        transform: translateY(0px); /* 初始状态为稍微向下偏移 */ 
+        transition: opacity 1s ease-out, transform 1.2s ease-out; /* 过渡效果 */
+        
+        
     }
 }
-
 .blog-post.visible {
+
     opacity: 1;
-    transform: translateX(0px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateX(0px); /* 初始状态为稍微向下偏移 */ 
+    transition: opacity 1s ease-out, transform 1.2s ease-out; /* 过渡效果 */
+    
+    
 }
 
 .blog-post h3 a {
-    color: #333;
+    color: #cdcaca;
     text-decoration: none;
 }
 
@@ -124,10 +170,10 @@ main {
 #about, #contact {
     animation: goin ease-in 1s;
     margin-top: 2em;
-    background: white;
+    background: rgb(35, 35, 35);
     padding: 2em;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(232, 231, 231, 0.314);
 }
 
 #about img {
@@ -152,7 +198,7 @@ footer {
 }
 
 #pagination button {
-    background-color: #333;
+    background-color: #3f3e3e;
     color: white;
     border: none;
     padding: 0.5em 1em;
@@ -161,7 +207,7 @@ footer {
 }
 
 #pagination button:disabled {
-    background-color: #ccc;
+    background-color: #a5a5a5;
     cursor: not-allowed;
 }
 
@@ -193,9 +239,8 @@ a {
 }
 
 .blog-post a:hover {
-    color: #666;
+    color: #8d8b8b;
 }
-
 .intro-container {
     display: flex;
     align-items: center;
@@ -248,15 +293,19 @@ a {
     width: 26px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: rgb(176, 171, 171);
     transition: 0.4s;
     border-radius: 50%;
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #059010;
 }
 
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
+/*代辦:
+    紀錄使用者是否開關
+*/

@@ -42,6 +42,7 @@ function displayBlogs(page) {
         filteredBlogs.slice(start, end).forEach(blog => {
             const blogPost = document.createElement('div');
             blogPost.className = 'blog-post';
+            blogPost
             blogPost.innerHTML = `
                 <h2><a href="${blog.link}" target="_blank">${blog.title}</h2>
                 <p>${blog.desc}</p>
@@ -100,9 +101,16 @@ function filterBlogs(category) {
 
 document.addEventListener('DOMContentLoaded', () => {
     displayBlogs(currentPage);
+    // Get the checkbox and add an event listener
+    
+
     
    
 });
 
 
-
+// Function to change the CSS file
+function changeCSS(cssFile) {
+    var link = document.querySelector("link[rel=stylesheet]");
+    link.setAttribute("href", cssFile);
+}
