@@ -257,7 +257,7 @@ a {
 }
 
 input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #059010;
 }
 
 input:checked + .slider:before {
