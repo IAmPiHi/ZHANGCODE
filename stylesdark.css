@@ -146,6 +146,9 @@ main {
         
         
     }
+    input:checked + .slider:before {
+    transform: translateX(18px);
+}
 }
 .blog-post.visible {
 
