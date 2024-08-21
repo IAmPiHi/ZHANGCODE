@@ -3,5 +3,5 @@ const blogs = [
     {title: "C++指標", link: "https://sites.google.com/view/zhangcode-cppptr/c-%E6%8C%87%E6%A8%99?authuser=2", desc: "以資料結構linkedlist為範例，進行 C++指標的概念和運用教學。", img: "bp/blog2.jpg", category: 'cpp' },
     {title: "教學:如何用Linux寫程式?", link: "https://sites.google.com/view/zhangcodelinuxcoding/linux?authuser=2", desc: "Linux受益於類UNIX系統強大的終端和開源特性，深受眾多開發者的喜愛。<br>記得我第一次使用Linux寫程式時，也被它的強大和靈活性所驚豔。<br>掌握Linux無疑將在未來的道路上帶來巨大的幫助！", img: "bp/blog3.jpg", category: 'none' }//,{},{}
         ,{title: "APCS2017-0304-3數字龍捲風", link: "https://sites.google.com/view/apcs2017-0304-3/%E9%A6%96%E9%A0%81?authuser=1", desc: "APCS2017-0304-3數字龍捲風。 AC解答", img: "bp/apcs.jpg", category: 'cpp' },
-    // 添加更多網誌數據 cpp csharp none python
+    {title: "C++超基礎教學(未完成)", link: "https://sites.google.com/view/cppeasylearning/%E9%A6%96%E9%A0%81?authuser=1", desc: "提供給完全沒接觸過C++ 甚至程式語言的人一個入門的教學文章 幫助讀者快速理解進入狀況", img: "bp/cppt.jpg", category: 'cpp' }// 添加更多網誌數據 cpp csharp none python
 ];
