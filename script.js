@@ -176,16 +176,7 @@ function searchBlogs() {
 
 
 
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('change', function() {
-        if (this.checked) {
-            changeCSS('dark-theme.css');
-            document.body.classList.add('dark-mode');
-        } else {
-            changeCSS('light-theme.css');
-            document.body.classList.remove('dark-mode');
-        }
-    });
+    
 
     gsap.to(".parallax-section", {
         backgroundPosition: "50% 100%",
