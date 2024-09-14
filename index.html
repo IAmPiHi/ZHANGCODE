@@ -44,17 +44,19 @@
 
         <section id="blogs" class="section-fade">
             <h2 class="section-title">最新內容</h2>
-            <div class="search-container">
+            <div class="search-container" >
                 <input type="text" id="search-input" placeholder="搜尋文章...">
                 <button id="search-button">搜尋</button>
+                <div id="sc"></div>
+
             </div>
            
             <div id="filter-buttons" class="filter-container">
-                <button class="filter-btn" onclick="filterBlogs('all')">全部</button>
-                <button class="filter-btn" onclick="filterBlogs('csharp')">C#</button>
-                <button class="filter-btn" onclick="filterBlogs('cpp')">C++</button>
-                <button class="filter-btn" onclick="filterBlogs('python')">Python</button>
-                <button class="filter-btn" onclick="filterBlogs('none')">不分語言</button>
+                <button class="filter-btn" id="all" onclick="filterBlogs('all')">全部</button>
+                <button class="filter-btn" id="csharp" onclick="filterBlogs('csharp')">C#</button>
+                <button class="filter-btn" id="cpp" onclick="filterBlogs('cpp')">C++</button>
+                <button class="filter-btn" id="python" onclick="filterBlogs('python')">Python</button>
+                <button class="filter-btn" id="none" onclick="filterBlogs('none')">不分語言</button>
             </div>
             <div id="blog-container" class="blog-grid"></div>
             <div id="pagination">

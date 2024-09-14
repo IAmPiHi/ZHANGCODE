@@ -1,9 +1,22 @@
-const blogsPerPage = 4;
+let blogsPerPage;
 let currentPage = 1;
 let currentCategory = 'all';
 let searchKeyword = '';
 let scartching = false;
 let scartchingkw='';
+updateActiveFilterButton(currentCategory);
+
+
+function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+if (isMobile()) {
+    blogsPerPage = 5;
+} else {
+    blogsPerPage = 4;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
 displayBlogs(currentPage);
 
@@ -46,7 +59,8 @@ function displayBlogs(page) {
     const end = start + blogsPerPage;
     const blogContainer = document.getElementById('blog-container');
     blogContainer.innerHTML = '';
-
+    const sh = document.getElementById('sc');
+    sh.innerHTML = '';
     let typename = getTypeName(currentCategory);
 
     if (filteredBlogs.length === 0) {
@@ -59,17 +73,34 @@ function displayBlogs(page) {
             <h3 class="filter-info">搜尋: ${scartchingkw} / 篩選: ${typename} (${filteredBlogs.length})</h3>
              <p class="no-posts">找不到文章 請變更關鍵字或分類!
         `;
+        sh.innerHTML = `
+            
+                <button id="clear-button" onclick="clearInput()" style="transform: translateX(20px); ">刪除關鍵字</button>
+        `;
         }
     } else {
         blogContainer.innerHTML = `
             <h3 class="filter-info">篩選: ${typename} (${filteredBlogs.length})</h3>
+            
+        `;
+        sh.innerHTML = `
+                            
         `;
         if(scartching === true){
             blogContainer.innerHTML = `
             <h3 class="filter-info">搜尋: ${scartchingkw} / 篩選: ${typename} (${filteredBlogs.length})</h3>
         `;
+        sh.innerHTML = `
+            
+                <button id="clear-button" onclick="clearInput()" style="transform: translateX(20px); ">刪除關鍵字</button>
+        `;
         }
-        
+        else{
+            sh.innerHTML = `
+            
+                
+        `;
+        }
         filteredBlogs.slice(start, end).forEach((blog, index) => {
             const blogPost = document.createElement('div');
             blogPost.className = 'blog-post';
@@ -163,7 +194,10 @@ function getTypeName(category) {
         default: return category;
     }
 }
-
+function clearInput(){
+    document.getElementById('search-input').value = '';
+    searchBlogs();
+}
 function searchBlogs() {
     scartchingkw = document.getElementById('search-input').value;
     searchKeyword = scartchingkw.toLowerCase();
