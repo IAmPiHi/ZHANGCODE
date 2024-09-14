@@ -4,6 +4,7 @@ let currentCategory = 'all';
 let searchKeyword = '';
 let scartching = false;
 let scartchingkw='';
+blogs.reverse();
 updateActiveFilterButton(currentCategory);
 
 
