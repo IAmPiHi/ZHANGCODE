@@ -54,17 +54,22 @@ function displayBlogs(page) {
             <h3 class="filter-info">篩選: ${typename}</h3>
             <p class="no-posts">暫無該分類的文章!</p>
         `;
+        if(scartching === true){
+            blogContainer.innerHTML = `
+            <h3 class="filter-info">搜尋: ${scartchingkw} / 篩選: ${typename} (${filteredBlogs.length})</h3>
+             <p class="no-posts">找不到文章 請變更關鍵字或分類!
+        `;
+        }
     } else {
         blogContainer.innerHTML = `
             <h3 class="filter-info">篩選: ${typename} (${filteredBlogs.length})</h3>
         `;
         if(scartching === true){
-            
             blogContainer.innerHTML = `
-            <h3 class="filter-info">搜尋: ${scartchingkw}</h3>
-           
+            <h3 class="filter-info">搜尋: ${scartchingkw} / 篩選: ${typename} (${filteredBlogs.length})</h3>
         `;
         }
+        
         filteredBlogs.slice(start, end).forEach((blog, index) => {
             const blogPost = document.createElement('div');
             blogPost.className = 'blog-post';
@@ -134,7 +139,6 @@ function changePage(direction) {
 function filterBlogs(category) {
     currentCategory = category;
     currentPage = 1;
-    scartching = false;
     displayBlogs(currentPage);
     updateActiveFilterButton(category);
 }
@@ -155,23 +159,29 @@ function getTypeName(category) {
         case 'cpp': return 'C++';
         case 'csharp': return 'C#';
         case 'python': return 'Python';
-        case 'none': return '不分語言類';
+        case 'none': return '不分語言';
         default: return category;
     }
 }
 
 function searchBlogs() {
-    searchKeyword = document.getElementById('search-input').value.toLowerCase();
-    if(searchKeyword.trim()===""){
-        alert("關鍵字不可為空白!");
+    scartchingkw = document.getElementById('search-input').value;
+    searchKeyword = scartchingkw.toLowerCase();
+    if(searchKeyword .trim() === ""){
+        scartching = false;
+        currentPage = 1;
     }
     else{
-    currentPage = 1;
-    currentCategory = 'all';
-    scartching = true;
-    scartchingkw=searchKeyword;
-    displayBlogs(currentPage);
+        scartching = true;
+        currentPage = 1;
+       
     }
+    
+    
+    
+    displayBlogs(currentPage);
+    
+    
 }
 
 
@@ -205,4 +215,3 @@ function searchBlogs() {
             searchBlogs();
         }
     });
-
