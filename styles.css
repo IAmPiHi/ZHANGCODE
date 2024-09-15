@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 :root {
-    --primary-color: #1d8c1d;
+    --primary-color: #24a124;
     --primary2-color:rgb(66, 208, 66);
     --secondary-color: #333;
     --background-color: radial-gradient(circle at 20% 60%, #b0caf5, #638af5, #0d1b2a);
@@ -52,18 +52,27 @@
         }
 
         .typing-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 0.12em solid var(--primary-color);
             animation: typing 3s steps(10, end) infinite alternate,
                        blink 0.75s step-end infinite;
+            white-space: nowrap;
+            border-right: 0.12em solid var(--primary-color);
+            display: inline-block;
+            overflow: hidden;
         }
-
+        
         @keyframes typing {
             from { width: 0 }
             to { width: 10ch }
         }
+
+        @media (max-width: 600px) {
+            @keyframes typing {
+                from { width: 0 }
+                to { width: 100% }
+            }
+        }
+
+       
 
         @keyframes blink {
             from, to { border-color: transparent }
@@ -201,6 +210,11 @@
             font-size: 2.5em;
             margin-bottom: 1em;
             color: var(--primary-color);
+            text-shadow: 
+            -1px -1px 0 #000,  
+            1px -1px 0 #000,  
+            -1px 1px 0 #000,  
+            1px 1px 0 #000;  /* 四個方向的陰影，實現描邊效果 */
         }
 
         #about, #blogs, #contact {
@@ -209,6 +223,8 @@
             margin: 2em 0;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
+           
+
         }
 
         .about-content {
