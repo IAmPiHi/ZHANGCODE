@@ -67,7 +67,7 @@
 
          @media (max-width: 600px) {
             from { width: 0 }
-            to { width: 13ch }
+            to { width: 15ch }
         }
 
        
