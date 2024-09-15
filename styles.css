@@ -65,11 +65,9 @@
             to { width: 10ch }
         }
 
-        @media (max-width: 600px) {
-            @keyframes typing {
-                from { width: 0 }
-                to { width: 100% }
-            }
+         @media (max-width: 600px) {
+            from { width: 0 }
+            to { width: 13ch }
         }
 
        
