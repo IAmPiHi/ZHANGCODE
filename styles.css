@@ -65,11 +65,10 @@
             to { width: 10ch }
         }
 
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             from { width: 0% }
             to { width: 120% }
         }
-
        
 
         @keyframes blink {
@@ -129,7 +128,7 @@
             font-weight: bold;
             text-transform: uppercase;
             position: relative;
-            color: var(--primary2-color);
+            color: var(--primary-color);
             letter-spacing: 0.1em;
             animation: glitch 1s linear infinite;
         }
@@ -140,7 +139,7 @@
             }
             4%, 60% {
                 transform: translate(-2px,0) skew(0deg);
-                color:#09cbc8;
+                color:#11b7b5;
             }
             62% {
                 transform: translate(0,0) skew(5deg); 
@@ -192,7 +191,7 @@
         .subtitle {
             font-size: 1.2em;
             margin-top: 1em;
-            text-shadow: -3px 0 #00eeff;
+            text-shadow: -3px 0 #03b0bd;
             font-weight: 1000;
             color:rgb(8, 82, 255);
         }
