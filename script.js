@@ -11,9 +11,19 @@ updateActiveFilterButton(currentCategory);
 function isMobile() {
     return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
+function isLaptop() {
+    const width = window.screen.width;
+    // 假設螢幕寬度介於1024px到1366px之間的大多為筆記型電腦
+    return width >= 1024 && width <= 1366;
+}
 if (isMobile()) {
     blogsPerPage = 5;
-} else {
+}
+else if(isLaptop())
+{
+    blogsPerPage = 3;
+}
+else {
     blogsPerPage = 4;
 }
 
