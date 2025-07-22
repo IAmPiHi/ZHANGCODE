@@ -52,24 +52,27 @@
         }
 
         .typing-text {
-            animation: typing 3s steps(10, end) infinite alternate,
-                       blink 0.75s step-end infinite;
-            white-space: nowrap;
-            border-right: 0.12em solid var(--primary-color);
-            display: inline-block;
-            overflow: hidden;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 10ch }
-        }
+    animation: typing 3s steps(10, end) infinite alternate,
+               blink 0.75s step-end infinite;
+    white-space: nowrap;
+    border-right: 0.12em solid var(--primary-color);
+    display: inline-block;
+    overflow: hidden;
+}
 
-        @media (max-width: 768px) {
-            from { width: 0% }
-            to { width: 120% }
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 10ch; } /* Matches the length of "ZhangCode" (9 chars) + 1 for spacing */
+    }
+
+    @media (max-width: 768px) {
+        .typing-text {
+            /* Remove the conflicting width animation */
+            animation: typing 3s steps(10, end) infinite alternate,
+                    blink 0.75s step-end infinite;
         }
-       
+    }
+        
 
         @keyframes blink {
             from, to { border-color: transparent }
