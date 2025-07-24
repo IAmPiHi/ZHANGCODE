@@ -11,7 +11,7 @@ function isMobile() {
     return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 }
 if (isMobile()) {
-    blogsPerPage = 5;
+    blogsPerPage = 3;
 } else {
     blogsPerPage = 4;
 }
