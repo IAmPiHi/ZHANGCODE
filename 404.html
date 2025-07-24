@@ -88,7 +88,7 @@
 
     /* 小抖動畫 */
     .glitch-text {
-      animation: flicker 5s infinite, shift 3s infinite;
+      animation: flicker 5s infinite, shift 2s infinite;
     }
 
     @keyframes flicker {
@@ -102,8 +102,8 @@
 
     @keyframes shift {
       0% { transform: translate(0, 0); }
-      33% { transform: translate(-1px, 1px); }
-      66% { transform: translate(1px, -1px); }
+      33% { transform: translate(-6px, 3px); }
+      66% { transform: translate(2px, -6px); }
       100% { transform: translate(0, 0); }
     }
   </style>
