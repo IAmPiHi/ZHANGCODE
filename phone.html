@@ -298,14 +298,14 @@
             <input type="text" id="search-input" placeholder="搜尋">
             <button id="search-button">搜尋</button>
             <div id="sc"></div>
-            <button id="clear-button">清除</button>
+            
         </div>
-        <div class="filter-container">
-            <button class="filter-btn active">全部</button>
-            <button class="filter-btn">C#</button>
-            <button class="filter-btn">C++</button>
-            <button class="filter-btn">Python</button>
-            <button class="filter-btn">不分語言</button>
+        <div id="filter-buttons" class="filter-container">
+                <button class="filter-btn" id="all" onclick="filterBlogs('all')">全部</button>
+                <button class="filter-btn" id="csharp" onclick="filterBlogs('csharp')">C#</button>
+                <button class="filter-btn" id="cpp" onclick="filterBlogs('cpp')">C++</button>
+                <button class="filter-btn" id="python" onclick="filterBlogs('python')">Python</button>
+                <button class="filter-btn" id="none" onclick="filterBlogs('none')">不分語言</button>
         </div>
         <div id="blog-container" class="blog-grid"></div>
         <div id="pagination">
