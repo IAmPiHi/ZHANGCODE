@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="LOGO.ico" type="image/x-icon">
     <title>ZHANGCODE</title>
+    <script>
+    // 裝置偵測（簡單夠用版）
+    const isMobiles = /iPhone|iPod|Android|Mobile|Windows Phone/i.test(navigator.userAgent);
+    if (!isMobiles) {
+      // 如果不是手機，跳轉去 index.html
+      window.location.href = 'index.html';
+    }
+  </script>
     <style>
         :root {
             --primary-color: #24a124;
