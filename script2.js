@@ -22,7 +22,7 @@ displayBlogs(currentPage);
 
 gsap.registerPlugin(ScrollTrigger);
 
-// 為每個部分添加滾動觸發動畫
+
 gsap.utils.toArray(".section-fade").forEach(section => {
 gsap.fromTo(section, 
     {
@@ -32,14 +32,14 @@ gsap.fromTo(section,
     }, 
     {
         opacity: 1, // 最終透明度
-        y: 0,       // 最終位置
+        y: 0,       
         duration: 0.5,
         scrollTrigger: {
             trigger: section,
-            start: "top bottom-=100", // 當區域頂部進入視口底部100px時觸發
-            end: "bottom top",        // 當區域底部離開視口時觸發結束
-            toggleActions: "play reverse play reverse", // 播放動畫並復位
-            markers: false  // 如果要查看觸發點，可以設為 true
+            start: "top bottom-=100", 
+            end: "bottom top",       
+            toggleActions: "play reverse play reverse", 
+            markers: false  
         }
     }
     
