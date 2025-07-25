@@ -377,7 +377,7 @@ html {
 
 .blog-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
     gap: 2em;
 }
 
@@ -404,12 +404,21 @@ html {
     text-decoration: none;
     color: inherit;
 }
+.blog-placeholder {
+    visibility: hidden; /* 不顯示但保留空間 */
+}
 
 #pagination {
     text-align: center;
     margin-top: 2em;
 }
-
+.no-posts {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    height: 200px;
+    text-align: center;
+}
 #pagination button {
     background-color: var(--secondary-color);
     color: white;

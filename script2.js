@@ -66,7 +66,7 @@ function displayBlogs(page) {
     if (filteredBlogs.length === 0) {
         blogContainer.innerHTML = `
             <h3 class="filter-info">篩選: ${typename}</h3>
-            <p class="no-posts">暫無該分類的文章!</p>
+            <p class="no-posts">暫無該分類的文章!</p><br>
         `;
         if(scartching === true){
             blogContainer.innerHTML = `
@@ -150,7 +150,17 @@ function displayBlogs(page) {
             
            
         });
-    }
+        if(!isMobile()){
+        const actualPosts = filteredBlogs.slice(start, end).length;
+        const neededPlaceholders = blogsPerPage - actualPosts;
+
+        for (let i = 0; i < neededPlaceholders; i++) {
+            const placeholder = document.createElement('div');
+            placeholder.className = 'blog-post blog-placeholder'; //  CSS 隱藏
+            blogContainer.appendChild(placeholder);
+        }
+            }
+        }
     
 
     updatePagination(page, Math.ceil(filteredBlogs.length / blogsPerPage));
