@@ -71,7 +71,7 @@ function displayBlogs(page) {
         if(scartching === true){
             blogContainer.innerHTML = `
             <h3 class="filter-info">搜尋: ${scartchingkw} / 篩選: ${typename} (${filteredBlogs.length})</h3>
-             <p class="no-posts">找不到文章 請變更關鍵字或分類!
+             <p class="no-posts">找不到文章 請變更關鍵字或分類!</p><br>
         `;
         sh.innerHTML = `
             
