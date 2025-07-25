@@ -435,7 +435,7 @@ html {
 }
 
 #pagination button:disabled {
-    background-color: #14145f32;
+    background-color: #14145f18;
     cursor: not-allowed;
 }
 
