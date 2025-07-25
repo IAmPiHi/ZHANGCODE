@@ -20,7 +20,7 @@ target.style.fontSize = "5rem";
   wrapper.appendChild(fill);
   target.appendChild(wrapper);
 
-  delay += 0.2; // 節奏更快更炸
+  delay += 0.2; 
 });
 
 // LOGO變化
@@ -46,10 +46,10 @@ setTimeout(() => {
     wrapper.appendChild(fill);
     target.appendChild(wrapper);
 
-    // ❗加入閃光延遲效果：每個字延遲後加上 lightshine 效果
+    
     setTimeout(() => {
       wrapper.classList.add("glow-loop");
-    }, i * 200 + 4000); // 第一秒等待動畫跑完，再逐個開始閃
+    }, i * 200 + 4000); 
   });
 }, text.length * 200 + 1500);
 
