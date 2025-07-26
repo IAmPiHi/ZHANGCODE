@@ -5,5 +5,5 @@ const blogs = [
         ,{title: "APCS2017-0304-3數字龍捲風", link: "https://sites.google.com/view/apcs2017-0304-3/%E9%A6%96%E9%A0%81?authuser=1", desc: "APCS2017-0304-3數字龍捲風。 AC解答", img: "bp/apcs.jpg", category: 'cpp' },
     {title: "C++超基礎教學(未完成)", link: "https://sites.google.com/view/cppeasylearning/%E9%A6%96%E9%A0%81?authuser=1", desc: "提供給完全沒接觸過C++ 甚至程式語言的人一個入門的教學文章<br> 幫助讀者快速理解進入狀況。", img: "bp/cppt.jpg", category: 'cpp' }
     ,
-    {title: "了解Computer Science能大幅提升程式能力?", link: "posts/others001.html", desc: "其實說白了，打程式就是在請電腦做某些特定的事情。但其中本來就有很多動作是牽涉到到腦運行的底層邏輯，例如C++的指標、或是你想繪製圖表(Bitmap)等等 都是Computer Science涵蓋的範圍。", img: "bp/CS.jpg", category: 'none' }// 添加更多網誌數據 cpp csharp none python
+    {title: "了解Computer Science能大幅提升程式能力?", link: "posts/others001.html", desc: "其實說白了，打程式就是在請電腦做某些特定的事情。但其中本來就有很多動作是牽涉到電腦運行的底層邏輯，例如C++的指標、或是你想繪製圖表(Bitmap)等等 都是Computer Science涵蓋的範圍。", img: "bp/CS.jpg", category: 'none' }// 添加更多網誌數據 cpp csharp none python
 ];
