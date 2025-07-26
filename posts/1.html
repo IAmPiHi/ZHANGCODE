@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🚀 用 C# 寫出你的第一個區塊鏈</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+  <!-- Prism.js 語法高亮 CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism-tomorrow.min.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-csharp.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-markup.min.js"></script>
+<script>
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+  function contact(){
+    if (isMobile()) {
+        location.href = "/mobile#contact"
+    }
+    else{
+        location.href = "/#contact"
+    }
+  }
+
+  </script>
+  <style>
+    :root {
+      --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--highlight);
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+
+    ul {
+      padding-left: 1.5em;
+    }
+
+    ul li {
+      margin-bottom: 0.5em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: var(--neon-blue);
+      animation: blink 1s step-end infinite;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+      
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+      
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+        
+    }
+
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a onclick="contact()">意見反饋</a></li>
+    </ul>
+   
+  </nav>
+
+  <main>
+    <h1>🚀 用 C# 寫出你的第一個區塊鏈</h1>
+    <p class="subtitle">張家銘 · 2025/07/25</p>
+    <hr>
+
+    <p>你可能以為區塊鏈只有比特幣用得上，但其實它本質就是一個**資料結構 + 共識演算法 + 加密**的組合。這篇我會帶你用 C# 寫出一個超簡單版的區塊鏈，讓你搞懂它背後的核心邏輯。</p>
+
+    <h2>📦 區塊結構</h2>
+    <p>我們的每個區塊都有：</p>
+    <ul>
+      <li>索引 index</li>
+      <li>時間戳 timestamp</li>
+      <li>資料 data</li>
+      <li>前一個區塊的哈希值 previousHash</li>
+      <li>本身的哈希值 hash</li>
+    </ul>
+
+    <h2>💻 C# 程式碼範例</h2>
+    <pre><code class="language-csharp">
+public class Block
+{
+    public int Index { get; set; }
+    public DateTime Timestamp { get; set; }
+    public string Data { get; set; }
+    public string PreviousHash { get; set; }
+    public string Hash { get; set; }
+
+    public Block(int index, DateTime timestamp, string data, string previousHash = "")
+    {
+        Index = index;
+        Timestamp = timestamp;
+        Data = data;
+        PreviousHash = previousHash;
+        Hash = CalculateHash();
+    }
+
+    public string CalculateHash()
+    {
+        return Convert.ToBase64String(
+            SHA256.Create().ComputeHash(
+                Encoding.UTF8.GetBytes(Index + Timestamp.ToString() + Data + PreviousHash)
+            )
+        );
+    }
+}</code></pre>
+
+<p>執行結果:</p>
+<img src="pic/other001a.png">
+    
+<h2>🌐 延伸閱讀</h2>
+    <p>這篇只是基礎介紹，實際應用的區塊鏈還有「挖礦」、「工作量證明」、「共識演算法」等等。</p>
+    <p>👉 想看進階版？<a href="https://github.com">點我去 GitHub</a></p>
+
+    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+  </main>
+
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+
+</body>
+</html>
