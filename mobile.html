@@ -5,14 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="LOGO.ico" type="image/x-icon">
     <title>ZHANGCODE</title>
-    <script>
-    // 裝置偵測（簡單夠用版）
-    const isMobiles = /iPhone|iPod|Android|Mobile|Windows Phone/i.test(navigator.userAgent);
-    if (!isMobiles) {
-      // 如果不是手機，跳轉去 index.html
-      window.location.href = 'index.html';
-    }
-  </script>
     <style>
         :root {
             --primary-color: #24a124;
@@ -205,6 +197,11 @@
             background: var(--hover-color);
         }
 
+        .reveal {
+    opacity: 0;
+    transform: translateX(-120px);
+        }
+
         .filter-container {
             display: flex;
             flex-wrap: wrap;
@@ -332,7 +329,7 @@
         <div id="animated-text"></div>
     </section>
 
-    <section id="about" class="section">
+    <section id="about" class="section reveal">
         <h2 class="section-title">關於這個網站</h2>
         <div class="about-content">
             <div class="about-text">
@@ -348,7 +345,7 @@
         </div>
     </section>
 
-    <section id="blogs" class="section">
+    <section id="blogs" class="section reveal">
         <h2 class="section-title">最新內容</h2>
         <div class="search-container">
             <input type="text" id="search-input" placeholder="搜尋">
@@ -371,7 +368,7 @@
         </div>
     </section>
 
-    <section id="contact" class="section">
+    <section id="contact" class="section reveal">
         <h2 class="section-title">聯絡版主</h2>
         <div class="contact-content">
             <p>如果有任何錯誤，或是問題。</p>
@@ -388,7 +385,7 @@
     <script src="allpost.js"></script>
     <script src="script2.js"></script>
     <script>
-        const text = "你也喜歡打程式阿?";
+        const text = "我還是想建議你用電腦瀏覽!";
         const target = document.getElementById("animated-text");
         let delay = 0;
 
@@ -403,7 +400,7 @@
 
         setTimeout(() => {
             target.innerHTML = "";
-            target.style.fontSize = "3.5rem";
+            target.style.fontSize = "5rem";
             const finalText = "ZHANGCODE";
             [...finalText].forEach((char, i) => {
                 const wrapper = document.createElement("span");
@@ -422,4 +419,27 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             location.hash = '';
         }
+
+        // GSAP ScrollTrigger 動畫
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.reveal').forEach(section => {
+    gsap.fromTo(section,
+        {
+            opacity: 0,
+            x: -50
+        },
+        {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+                toggleActions: "play none none none"
+            }
+        });
+});
+
     </script>
