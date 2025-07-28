@@ -105,7 +105,7 @@ function displayBlogs(page) {
             const blogPost = document.createElement('div');
             blogPost.className = 'blog-post';
             blogPost.innerHTML = `
-                <a href="${blog.link}" target="_blank" class="blog-link">
+                <a href="${blog.link}" class="blog-link">
                     <div class="blog-image" style="background-image: url('${blog.img}')"></div>
                     <div class="blog-content">
                         <h3>${blog.title}</h3>
