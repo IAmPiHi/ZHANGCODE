@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MySQL 資料庫筆記速查！</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+
+  <!-- Highlight.js for SQL -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- 原本你的 CSS 保留 -->
+  <style>
+    :root {
+      --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--highlight);
+    }
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="location.href='/#contact'">意見反饋</a></li>
+    </ul>
+  </nav>
+
+  <main>
+  <h1>🛢️ MySQL 筆記 for beginner</h1>
+  <p class="subtitle">張家銘 · 2025/08/05</p>
+  <hr>
+
+  <p>你一定常常聽到資料庫這個詞，現代網站和很多遊戲、軟體等等 後面都會有資料庫在管理各式各樣的資料。可以說是非常重要的一個東西，如果學會使用資料庫也可以大大增加自己的就業機會!因為很多各行各業都會需要用到資料庫來統整資料。而今天這篇文章可以幫助大家在看完影片後，用文章做複習和實作!</p>
+  <p><strong>🎥 推薦教學影片：</strong><br><a href="https://youtu.be/gvRXjsrpCHw?si=L7eu3K-SPIEB42bk" target="_blank">【完整MySQL教學】建議可以先看這支影片</a></p>
+
+  <h2>🚀 準備工作：安裝 & 開啟資料庫</h2>
+  <ul>
+    <li>下載並安裝 MySQL 或用 XAMPP / MAMP 裡的 MySQL</li>
+    <li>用 Terminal 或 MySQL Workbench 連線，輸入帳號密碼登入</li>
+    <li>第一次使用記得先用：<code>CREATE DATABASE my_database;</code></li>
+    <li>然後切換到資料庫：<code>USE my_database;</code></li>
+  </ul>
+
+  <h2>🏗️ 建表：從零開始設計欄位</h2>
+  <p>表格就像 Excel 格子，每行代表一筆資料。</p>
+  <pre><code class="language-sql">
+-- 切換資料庫
+USE my_database;
+
+-- 建表語法範例
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    balance DECIMAL(10,2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+  </code></pre>
+  
+  
+ <p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>USE my_database;</code>：切換到名為 <code>my_database</code> 的資料庫，之後的操作都會在這個 DB 裡進行。</li>
+  <li><code>CREATE TABLE users (...)</code>：建立一個叫 <code>users</code> 的表格。</li>
+  <li><code>id INT PRIMARY KEY AUTO_INCREMENT</code>：建立整數型的 id 欄位，自動遞增，每筆資料會有獨立的流水號（當主鍵）。</li>
+  <li><code>name VARCHAR(100) NOT NULL</code>：名稱欄位，最多 100 個字，不能是空值。</li>
+  <li><code>balance DECIMAL(10,2)</code>：金額數字，最多 10 位數，其中 2 位是小數。</li>
+  <li><code>created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP</code>：自動加上目前新增時間。</li>
+</ul>
+<p><strong>建立表格：</strong></p>
+<ul>
+  <li><code>id</code>：主鍵唯一id 這裡直接用自動 +1，確保id一定不重複；</li>
+  <li><code>name</code>：文字欄位，長度最多 100，不能留白；</li>
+  <li><code>balance</code>：金額格式，兩位小數；</li>
+  <li><code>created_at</code>：紀錄新增時間。</li>
+  </ul>
+
+
+  <h2>📥 插入資料：怎麼寫資料進表裡？</h2>
+  <pre><code class="language-sql">
+INSERT INTO users (name, balance)
+VALUES ('Alice', 100.00), ('Bob', 50.50);
+  </code></pre>
+  <p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>INSERT INTO users (name, balance)</code>：要插入的欄位是 name 跟 balance，id 和 created_at 系統會自動補。</li>
+  <li><code>VALUES ('Alice', 100.00), ('Bob', 50.50);</code>：新增一筆資料，name 是 Alice，balance 是 100 元 以及Bob，balance 是 50.50 元。</li>
+</ul>
+
+  <p>✔️ 小提醒：<code>INSERT</code> 寫欄位名稱才不會搞錯順序；一次寫多筆用逗號隔開更有效率。</p>
+
+  <h2>🔄 更新 & 刪除：修改表格中的內容</h2>
+  <pre><code class="language-sql">
+-- 更新指定資料
+UPDATE users
+SET balance = balance + 20.00
+WHERE name = 'Alice';
+
+-- 刪除資料
+DELETE FROM users
+WHERE name = 'Bob';
+  </code></pre>
+  <p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>UPDATE users</code>：修改 users 表裡的資料。</li>
+  <li><code>SET balance = balance + 20</code>：將 balance 加 20（目前值 +20）。</li>
+  <li><code>WHERE name = 'Alice'</code>：只針對 name 是 Alice 的那一筆資料。</li>
+  <li><code>DELETE FROM users</code>：從 users 表中刪除資料。</li>
+  <li><code>WHERE name = 'Bob'</code>：限定只刪除名字是 Bob 的資料。</li>
+</ul>
+
+  <p>✅ 記得加上 <code>WHERE</code>，避免你一不小心連整張表都清掉…</p>
+
+  <h2>🔍 查詢資料：SELECT 的基本玩法</h2>
+  <pre><code class="language-sql">
+-- 選全部資料
+SELECT * FROM users;
+
+-- 查特定欄位
+SELECT name, balance FROM users;
+
+-- 條件查找
+SELECT * FROM users WHERE balance >= 50.00;
+
+-- 排序
+SELECT * FROM users ORDER BY balance DESC;
+
+-- 模糊比對
+SELECT * FROM users WHERE name LIKE '%li%';
+  </code></pre>
+<p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>SELECT *</code>：選取所有欄位。</li>
+  <li><code>FROM users</code>：從 users 這張表格裡找資料。</li>
+  <li><code>SELECT name, balance</code>：只取出 name 和 balance 這兩個欄位。</li>
+  <li><code>WHERE balance >= 50.00</code>：篩選條件，balance 要大於等於 50.00 才會出現。</li>
+  <li><code>AND</code> / <code>OR</code>：組合多個條件（AND 全都要符合，OR 任一符合即可）。</li>
+  <li><code>ORDER BY balance DESC</code>：根據 balance 欄位做排序，DESC 是遞減（大到小），ASC 是遞增（小到大）。</li>
+  <li><code>LIKE '%li%'</code>：模糊查詢，找出 name 裡「包含 li 」的資料。(%就代表隨便字 例如%le 就會包含apple ap% 也會包含apple，也可以用_代表一個字 例如a_p% 包含apple)</li>
+  
+</ul>
+
+  <h2>📊 統計 & 分組：COUNT、GROUP BY 用起來</h2>
+  <pre><code class="language-sql">
+SELECT name, COUNT(*) AS order_count
+FROM orders
+GROUP BY name;
+  </code></pre>
+  <p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>SELECT name, COUNT(*) AS order_count</code>：選出 name 欄位，並用 <code>COUNT(*)</code> 統計每個名字出現幾次（筆數），命名為 <code>order_count</code>(通常會直接顯示在下方，如果你用MySQL Workbench。)。</li>
+  <li><code>FROM orders</code>：資料來源是 orders 這張表。</li>
+  <li><code>GROUP BY name</code>：以 name 欄位來分組，也就是每個 name 為一組，然後分別計算每組的筆數。</li>
+</ul>
+
+  <p>這樣就可以看每位使用者訂單有幾筆。</p>
+
+  <h2>🔗 多表關聯：JOIN 和 UNION 怎麼用</h2>
+  <pre><code class="language-sql">
+-- UNION 查兩張表
+SELECT email FROM users
+UNION
+SELECT email FROM admins;
+
+-- JOIN 常見用法
+SELECT orders.id, users.name, orders.total
+FROM orders
+JOIN users ON orders.user_id = users.id;
+  </code></pre>
+  
+  <p><strong>語法說明：</strong></p>
+<ul>
+  <li><code>UNION</code>：把兩個查詢結果上下合併（不重複）。需要查詢欄位數量與型別一致。</li>
+  <li><code>SELECT name FROM users</code>：從 users 表選出 name。</li>
+  <li><code>JOIN</code>：把兩張表根據關聯欄位合併在一起，資料橫向擴展。</li>
+  <li><code>JOIN users ON orders.user_id = users.id</code>：把 orders 裡的 user_id 對應到 users 表的 id。</li>
+</ul>
+
+  <p>JOIN 用來把兩張表連起來，務必確保 FK 跟 PK 型態一致。</p>
+
+  <h2>⚠️ 常見錯誤＆注意事項</h2>
+  <ul>
+    <li>名稱別用 SQL 保留字（像 <code>table, select</code>），會出事</li>
+    <li>表格和欄位沒有強制規定大小寫，但邏輯要統一比較不會搞混</li>
+    <li>每張表記得要有有一個唯一主鍵</li>
+    <li>執行 <code>UPDATE</code> 和 <code>DELETE</code> 時務必加 <code>WHERE</code> 條件</li>
+    <li>如果資料超過欄位長度（如 VARCHAR(10) 你插入11個字），插入時超過的會被截斷!</li>
+  </ul>
+
+  <h2>📝 建議給初學者的小提醒</h2>
+  <ul>
+    <li>剛開始熟練 <code>SELECT/INSERT/UPDATE/DELETE</code> 這四個語法</li>
+    <li>練習題目可以從簡單表格開始，多動手查資料才會記得</li>
+    <li>試著寫出自己的小資料庫，比如學生名單、成績表，做完會很有成就感！</li>
+    <li>實作中遇到錯誤，就把錯誤訊息貼 google，說不定一堆人之前也遇過</li>
+    <li>當你能順利的把資料庫運用自如，你就得到超多工作機會了 💼</li>
+  </ul>
+
+  <p>以上就是MySQL 筆記 for beginner啦～看完影片，再配上本文章做練習，絕對能夠快速上手！如果對於本篇文章有任何問題 或是 有什麼其他想看的主題，記得用EMAIL聯絡我啊。 😎</p>
+
+  <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+</main>
+
+
+
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+
+</body>
+</html>
