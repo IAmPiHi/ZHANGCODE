@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flask vs Django 筆記筆記！</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+
+  <!-- Highlight.js Python 版本語法高亮 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script>hljs.highlightAll();</script>
+
+  <!-- 你原本的風格 CSS 繼續保留 -->
+  <style>
+    :root {
+      --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--highlight);
+    }
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="location.href='/#contact'">意見反饋</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>☝️Flask vs Django: What are their strengths?</h1>
+    <p class="subtitle">張家銘 · 2025/08/05</p>
+    <hr>
+
+    <p>Python 最well-known的兩個後端，肯定就是他們兩個。那他們兩個有啥不同，各自有啥優劣勢呢~~? 今天這篇文章就是來幫助大家區分兩者的優劣勢!</p>
+
+    <h2>📦 Django：都幫你配好好了</h2>
+    <p>Django 是一個 <strong>全功能</strong> 框架，你不需要自己組裝太多東西，它幾乎什麼都已經先幫你準備好了：Admin 後台、ORM、Auth、Routing、Template。你只要根據自己需求去調整，稍微修改就可以使用。</p>
+
+    <h2>🧩 Flask：給你核心接下來你可以自由發揮</h2>
+    <p>Flask 則是 <strong>極簡核心 + 自由擴充</strong>。你想怎麼組、用什麼 DB、加什麼套件都靠你自己決定，它只幫你處理最核心的 routing 和 server。</p>
+
+    <h2>💻 Code 差異</h2>
+    <p>來直接看看兩邊的 "Hello World" 要怎麼搞的 👇</p>
+
+    <h3>🧪 Flask 寫法</h3>
+    <pre><code class="language-python">
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello Flask!"
+
+if __name__ == "__main__":
+    app.run(debug=True)
+    </code></pre>
+
+    <h3>🏗️ Django 寫法</h3>
+    <pre><code class="language-python">
+# urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home),
+]
+
+# views.py
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Hello Django!")
+    </code></pre>
+
+    <p>看到沒～ Django 要分好幾個檔案，還要設專案、設 app，流程嚴謹；而 Flask 你可以就一個檔案直接搞定。</p>
+    <p>而這些特性也讓Django 通常安全性，完整性 更勝一籌。而且因為他們也有固定的社群在維護，你可以不用有很強的資安能力，他們可以幫你handle好一些繁瑣的工作(如session、cookie的處理)。</p>
+    <p>而Flask通常是給比較小型的網站使用，因為他方便撰寫，不用分一堆檔案。而且自由度也比較高，你可以自己決定你要用什麼DB之類的。但缺點就是很多基礎的東西你要自己寫，就看個人需求囉~~!</p>
+    <h2>🔍 差異總整理</h2>
+    <ul>
+      <li><strong>學習難度：</strong>Flask 比較輕鬆，Django 起步較陡</li>
+      <li><strong>自由度：</strong>Flask 高（但你要自己組），Django 限制多（但幫你組好了）</li>
+      <li><strong>開發速度：</strong>小案子 Flask 快，大案子 Django 穩</li>
+      
+    </ul>
+
+    <h2>🤔 總結:如何選擇？</h2>
+    <p>如果你是：<br>
+    🔹 剛開始寫網頁、想先感受一下後端：<strong>Flask</strong>:因為不用記很多東西。<br>
+    🔹 要做一個有會員系統、後台、權限那種有規模的系統：<strong>Django</strong>:因為很多底層邏輯已經幫你寫好，比較安全、方便。<br>
+    🔹 喜歡自己客製化、架構自己來：<strong>Flask</strong>:自由度高。<br>
+    🔹 想快速上線商用產品：<strong>Django</strong>:因為很多底層邏輯已經幫你寫好。
+    </p>
+
+    <p>總結就是：Flask 自由但你要會自己組裝，Django 強大但你得照它的規矩來。至於哪個比較適合，就看你個人的需求囉~</p>
+
+    <p>那這篇 Flask vs Django 筆記就先醬啦～～<br>有想看的主題也可以寄EMAIL來告訴我，掰啦掰啦 👋</p>
+
+    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+  </main>
+
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+</body>
+</html>
