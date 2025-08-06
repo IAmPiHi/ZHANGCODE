@@ -11,11 +11,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
   <script>hljs.highlightAll();</script>
+  <script>
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
 
+  function contact(){
+    if (isMobile()) {
+        location.href = "/mobile#contact"
+    }
+    else{
+        location.href = "/#contact"
+    }
+  }
+
+  </script>
   <!-- 你原本的風格 CSS 繼續保留 -->
   <style>
     :root {
-      --neon-blue: #00bfff;
+       --neon-blue: #00bfff;
       --glow-green: #24ff72;
       --bg-dark: #0a0a0a;
       --text-light: #dddddd;
@@ -131,7 +145,7 @@
   <nav>
     <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="location.href='/#contact'">意見反饋</a></li>
+      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
     </ul>
   </nav>
 
