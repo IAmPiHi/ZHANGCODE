@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GCC編譯器運作原理 + 動態/靜態連結解析</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+
+  <!-- Highlight.js for SQL -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+  function contact(){
+    if (isMobile()) {
+        location.href = "/mobile#contact"
+    }
+    else{
+        location.href = "/#contact"
+    }
+  }
+
+  </script>
+  <!-- 原本你的 CSS 保留 -->
+  <style>
+    :root {
+       --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: var(--highlight);
+    }
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>🔧 .dll 是什麼檔案？帶你了解 GCC 編譯器運作原理！</h1>
+    <p class="subtitle">張家銘 · 2025/08/16</p>
+    <hr>
+
+    <h2>⚙️ GCC 編譯流程</h2>
+    <p>GCC (GNU Compiler Collection) 並不是單純「把 C 原始碼轉成可執行檔」的一個單一工具，而是一整套<strong>工具鏈 (toolchain)</strong>。雖然我們表面上只看到它能把 <code>.c</code> 檔轉成 <code>.exe</code>（Windows）或 <code>a.out</code>（Linux），但實際上它的中間過程分成好幾層：</p>
+
+    <ol>
+      <li><b>Preprocessing (預處理)</b>：展開 <code>#define</code>、移除註解、展開 <code>#include</code><br>
+      （這個階段只會把標頭檔的<strong>宣告</strong>展開到程式碼裡，並不包含方法的定義！）</li>
+      <li><b>Compilation (編譯)</b>：把 C/C++ 原始碼轉換成組合語言 (<code>.s</code>)。</li>
+      <li><b>Assembly (組譯)</b>：把組合語言轉成<strong>"可重定位目標檔"</strong> (<code>.o</code>)，雖然這裡面包含了機器碼他，但它還不是最終的執行檔，因為它還沒有把函式庫給連結進來。它裡面會包含符號表 + 重定位表，用於在linker層把定義加進來!</li>
+      <li><b>Linking (連結)</b>：把所有 <code>.o</code> 檔與需要的函式庫整合，生成最終的可執行檔。</li>
+    </ol>
+
+    <p>不過有趣的是，我們可以手動停在某個階段來查看中間產物：</p>
+
+    <pre><code class="language-bash">
+# 顯示 GCC 中間產物
+$ gcc -E hello.c -o hello.i   # 預處理 → 產生 .i
+$ gcc -S hello.i -o hello.s   # 編譯 → 產生 .s (組合語言)
+$ gcc -c hello.s -o hello.o   # 組譯 → 產生 .o (機器碼/目標檔)
+$ gcc hello.o -o hello        # 連結 → 產生可執行檔
+</code></pre>
+
+    <h2>🔧 動態連結？那是什麼？</h2>
+    <p>問題來了：如果很多程式都用到 <code>stdio</code>，是不是每個可執行檔裡都要複製一份？這樣太沒效率了。於是就有了<strong>動態連結</strong>！</p>
+
+    <p>所謂動態連結，就是在「連結階段」不把函式的機器碼直接複製進程式，而是只放一個<strong>引用 (reference)</strong>。等到程式執行時，才會去 <code>.so</code> 或 <code>.dll</code> 裡面載入真正的定義。</p>
+
+    <h2>📦 建立共享函式庫 (.so / .dll)</h2>
+    <p>如果想讓多個程式共用同一份程式碼，就可以建立「共享函式庫」。在 Linux 是 <code>.so</code>，在 Windows 是 <code>.dll</code>。</p>
+
+    <pre><code class="language-cpp">// mathlib.cpp
+extern "C" int add(int a, int b) {
+    return a + b;
+}
+</code></pre>
+
+    <pre><code class="language-bash"># Linux: 產生 .so
+$ g++ -fPIC -shared mathlib.cpp -o libmath.so
+
+# Windows (MinGW): 產生 .dll
+$ g++ -shared mathlib.cpp -o mathlib.dll
+</code></pre>
+
+    <p>在另一個程式中，就能直接使用：</p>
+
+    <pre><code class="language-cpp">// main.cpp
+#include &lt;iostream&gt;
+extern "C" int add(int, int);
+
+int main() {
+    std::cout &lt;&lt; add(2, 3) &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+
+    <pre><code class="language-bash">$ g++ main.cpp -L. -lmath -o main
+$ ./main  # 輸出 5
+</code></pre>
+
+    <p><b>小提醒：</b>在 Windows 上要連結 <code>.dll</code>，通常還需要一個 <code>.lib</code> 檔（匯入庫），它提供「函式位置的索引」。例如：</p>
+
+    <pre><code class="language-bash">cl /LD mylib.c   # 生成 mylib.dll + mylib.lib
+cl main.c mylib.lib  # 使用匯入庫進行連結
+</code></pre>
+
+    <h2>🔗 動態連結 vs 靜態連結</h2>
+    <p>連結方式會影響程式的體積、效能與維護性：</p>
+
+    <ul>
+      <li><b>靜態連結 (.a / .lib)</b>：把函式庫程式碼直接複製到可執行檔 → 執行檔較大，但不依賴外部檔案。由於少了載入動作，效能可能稍快。</li>
+      <li><b>動態連結 (.so / .dll)</b>：只保留引用，程式啟動時再載入 → 執行檔體積小、可共用、更新方便，但需要確保系統有對應的函式庫。</li>
+    </ul>
+
+    <h3>📊 優劣勢比較</h3>
+    <table border="1" cellspacing="0" cellpadding="8">
+      <tr><th>類型</th><th>優點</th><th>缺點</th></tr>
+      <tr><td>靜態連結</td><td>不依賴外部庫、部署簡單</td><td>檔案大、更新困難（修改函式需重新編譯整個程式）</td></tr>
+      <tr><td>動態連結</td><td>檔案小、可共用、更新容易</td><td>版本不一致可能出錯、效能略低</td></tr>
+    </table>
+
+    <h2>🌍 跨語言整合</h2>
+    <p>更有趣的是，GCC 產生的 <code>.so</code> / <code>.dll</code> 還能被 Python、Java、C# 等語言呼叫。例如 Python 可以用 <code>ctypes</code>：</p>
+
+    <pre><code class="language-python">import ctypes
+lib = ctypes.CDLL("./libmath.so")
+print(lib.add(10, 20))  # 輸出 30
+</code></pre>
+
+    <p>這也是為什麼理解「編譯器 + 連結」的原理，可以讓你更靈活地整合不同語言與系統。</p>
+    <p>今天的文章就到這裡啦，如果有任何問題歡迎聯絡我！</p>
+    <p>參考影片: <a href="https://youtu.be/XJC5WB2Bwrc?si=qSBi6o9ljzLx1cBX" target="_blank">點我</a> </p>
+    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+</main>
+
+
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+
+</body>
+</html>
