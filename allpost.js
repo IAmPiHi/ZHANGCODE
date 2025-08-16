@@ -10,5 +10,7 @@ const blogs = [
     {title: "Flask vs Django: What are their strengths?", link: "posts/python001.html", desc: "Python 最well-known的兩個後端，肯定就是他們兩個。那他們兩個有啥不同，各自有啥優劣勢呢~~? 今天這篇文章就是來幫助大家區分兩者的優劣勢!", img: "bp/DVF.png", category: 'python' }
     ,
     { title: "MySQL 筆記 for beginner", link: "posts/others002.html", desc: "你一定常常聽到資料庫這個詞，現代網站和很多遊戲、軟體等等 後面都會有資料庫在管理各式各樣的資料。可以說是非常重要的一個東西，如果學會使用資料庫也可以大大增加自己的就業機會!", img: "bp/blog1.jpg", category: 'none' }
+    ,
+    { title: ".dll 是什麼檔案？帶你了解 GCC 編譯器運作原理！", link: "posts/others003.html", desc: "這篇文章用淺顯方式講解 GCC 編譯流程，從預處理到連結都拆解給你看，也說明 .so/.dll 怎麼生成、動態/靜態連結差別，以及教學如何跨語言呼叫 C/C++ 函式/功能!", img: "bp/others003.png", category: 'none' }
     // 添加更多網誌數據 cpp csharp none python
 ];
