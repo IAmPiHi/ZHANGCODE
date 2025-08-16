@@ -8,9 +8,34 @@
 
 
 <url>
-  <loc>https://zhangcode.ddns.net/</loc>
-  <lastmod>2024-07-11T09:42:34+00:00</lastmod>
+  <loc>https://zhangcode.ddns.net/mobile.html</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
 </url>
+
+<url>
+  <loc>https://zhangcode.ddns.net/posts/</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://zhangcode.ddns.net/posts/others002.html</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
+</url>
+
+<url>
+  <loc>https://zhangcode.ddns.net/posts/others003.html</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
+</url>
+ <url>
+  <loc>https://zhangcode.ddns.net/posts/others001.html</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
+</url>
+      <url>
+  <loc>https://zhangcode.ddns.net/posts/python001.html</loc>
+  <lastmod>2024-08-16T09:42:34+00:00</lastmod>
+</url>
+
+
 
 
 </urlset>
