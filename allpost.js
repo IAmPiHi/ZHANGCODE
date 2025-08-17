@@ -12,5 +12,7 @@ const blogs = [
     { title: "MySQL 筆記 for beginner", link: "posts/others002.html", desc: "你一定常常聽到資料庫這個詞，現代網站和很多遊戲、軟體等等 後面都會有資料庫在管理各式各樣的資料。可以說是非常重要的一個東西，如果學會使用資料庫也可以大大增加自己的就業機會!", img: "bp/blog1.jpg", category: 'none' }
     ,
     { title: ".dll 是什麼檔案？帶你了解 GCC 編譯器運作原理！", link: "posts/others003.html", desc: "這篇文章用淺顯方式講解 GCC 編譯流程，從預處理到連結都拆解給你看，也說明 .so/.dll 怎麼生成、動態/靜態連結差別，以及教學如何跨語言呼叫 C/C++ 函式/功能!", img: "bp/others003.png", category: 'none' }
+    ,
+    { title: "AI基礎理論知識 解密YT演算法!", link: "posts/others004.html", desc: "現在人工智慧是非常火熱的話題，今天就來帶大家簡單的認識一下AI吧~ 內容包括:簡單線性問題，到複雜神經網路 運作原理介紹。深入淺出帶大家認識AI!!!", img: "bp/others004.png", category: 'none' }
     // 添加更多網誌數據 cpp csharp none python
 ];
