@@ -14,5 +14,7 @@ const blogs = [
     { title: ".dll 是什麼檔案？帶你了解 GCC 編譯器運作原理！", link: "posts/others003.html", desc: "這篇文章用淺顯方式講解 GCC 編譯流程，從預處理到連結都拆解給你看，也說明 .so/.dll 怎麼生成、動態/靜態連結差別，以及教學如何跨語言呼叫 C/C++ 函式/功能!", img: "bp/others003.png", category: 'none' }
     ,
     { title: "AI基礎理論知識 解密YT演算法!", link: "posts/others004.html", desc: "現在人工智慧是非常火熱的話題，今天就來帶大家簡單的認識一下AI吧~ 內容包括:簡單線性問題，到複雜神經網路 運作原理介紹。深入淺出帶大家認識AI!!!", img: "bp/others004.png", category: 'none' }
+    ,
+    { title: "封包的旅程(OSI七層架構)", link: "posts/others005.html", desc: "我們常常在網站上按下\"送出\"後資料就神奇送到對方那裡，但過程封包究竟發生了什麼事?在這幾毫秒之間封包送過去又送回來，中間到底有什麼神奇的秘密?今天就來稍微介紹一下!", img: "bp/others005.png", category: 'none' }
     // 添加更多網誌數據 cpp csharp none python
 ];
