@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>🛜封包的旅程(OSI七層架構)</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+  <script>hljs.highlightAll();</script>
+  <script>
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function contact(){
+      if (isMobile()) {
+        location.href = "/mobile#contact"
+      } else{
+        location.href = "/#contact"
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--highlight);
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+
+    ul {
+      padding-left: 1.5em;
+    }
+
+    ul li {
+      margin-bottom: 0.5em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: var(--neon-blue);
+      animation: blink 1s step-end infinite;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+      
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+      
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+        
+    }
+
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+    img {
+  border: 2px solid #0ff; 
+  border-radius: 10px; /* 微微圓角 */
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset; /* 外發光 + 內發光 */
+  background-color: #000; 
+  padding: 5px; /* 邊框內空隙 */
+  transition: all 0.3s ease-in-out; 
+  width: 65%;
+  height: 70%;
+}
+
+img:hover {
+  box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
+  transform: scale(1.03); 
+}
+  </style>
+  
+</head>
+<body>
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>🛜封包的旅程(OSI七層架構)</h1>
+    <p class="subtitle">張家銘 · 2025/08/20</p>
+    <hr>
+    <p>我們常常在網站上按下"送出"後資料就神奇送到對方那裡，但過程封包究竟發生了什麼事?</p><p>在這幾毫秒之間封包送過去又送回來，中間到底有什麼神奇的秘密?今天就來稍微介紹一下!</p><h1>OSI七層模型</h1><div>WIKI上是這樣介紹OSI模型:</div><div>"開放式系統互聯模型（英語：Open Systems Interconnection Model，縮寫：OSI；簡稱為OSI模型）是一種概念模型，由國際標準化組織提出，一個試圖使各種電腦在世界範圍內互連為網路的標準框架。"</div><div>基本上沒甚麼問題，但對於七層架構每一層在幹嘛?很多教科書都會寫得很艱澀很抽象，因此接下來我將用好懂的方式說明!</div><div><h2>應用層 (Application Layer)</h2></div><div>這層是最高層，也就是使用者會接觸的那層:Gmail、表單，或傳賴。</div><div>這層決定了封包 "<b>傳什麼</b>"。</div><div><h2>表現層 (Presentation Layer)<p></p><p></p><p></p></h2></div><div><div><font color="#eef0ff" face="Arial, sans-serif">這層則是負責:編碼、解碼、加密，解密 的工作。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">像是:HTTPS加密、Flask 把 Python 物件轉成 JSON，ASCII 或 UNICODE 轉碼之類的~</font></div></div><div><font color="#eef0ff" face="Arial, sans-serif"><b style="">總之就是用"大家約定好的協定"來表現資料</b></font></div><h2>會議層 (Session Layer)</h2><div><font color="#eef0ff" face="Arial, sans-serif">這層是負責雙方之間對話的控制，也就是你跟伺服器端的溝通。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">包括像是身分管理，用session判斷你的身分(登入了哪個帳號)，判斷目前哪個帳號在互動之類的。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">除此之外他還負責:</font></div><div><font color="#eef0ff" face="Arial, sans-serif"><div>對話控制（Dialog Control）</div><div>規範「誰先講、誰後講」。</div><div>例如視訊會議，如果大家都同時講話會很亂；會話層能定義是「單工」(只能一邊講) 還是「半雙工 / 全雙工」。</div><div>以及 同步 (Synchronization)</div><div>假設你在傳一個超大檔案，結果傳到一半網路斷掉。</div><div>如果沒有會話層，你只能重頭開始傳。</div><div>但會話層會幫你「設檢查點 (checkpoint)」，中斷後可以從斷掉的地方繼續。</div><div><h2>傳輸層 (Transport Layer)</h2></div></font></div><div><font color="#eef0ff" face="Arial, sans-serif">這層主要是決定"封包要怎麼送"。它可能會對封包 分段、編號、錯誤檢查 等等。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">像是TCP會把封包分段、編號，如果有封包在中途遺失他可以重新寄送(HTTP就是採用TCP)。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">而UDP則不會檢查封包是否遺失，但是送的速度相對較快。因此遊戲的封包大多採用這種，才會有所謂"掉封包"的情況出現!</font></div><div><h2>網路層 (Network Layer)</h2></div><div><font color="#eef0ff" face="Arial, sans-serif">這層就是負責把封包從你那，安全送到對方那的一層。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">你的電腦送資料時會加上來源 IP（我家地址）+ 目的 IP（對方家地址）。路由器幫忙決定資料要往哪條路走。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">他會找出最短路徑並把你的封包送來送去，經過多次轉手到達目的地。(這邊我想提一下 中國電信事件:中國電信 錯誤設定誤導許多封包 以為他是最短路徑，導致很多國家的敏感資料像是美國軍方資料等等，被轉發到中國... 如果你對這個事件有興趣你可以去搜尋:CHINA TELECOM BGP 關鍵字 應該有不少資訊</font>)</div><div><h2>資料連結層 (Data Link Layer)</h2></div><div><font color="#eef0ff" face="Arial, sans-serif">這邊則是添加來源和接收方的MAC位址，以確保在局域網路內可以正確送達。網路的交換器(switch)也就是用MAC地址來判斷該把封包丟給誰的。</font></div><div><font color="#eef0ff" face="Arial, sans-serif">而添加來源MAC位址則是用於回應，等資料回應回來時 才知道這邊的switch要把資料交給誰!</font></div><div><h2>實體層 (Physical Layer)</h2></div><div><font color="#eef0ff" face="Arial, sans-serif">這層就是網卡(負責在設備和物理媒介之間進行數據轉換)，網路線那些的了。這層涉及到0和1，光和電 物理的層面，如何把資料送出去!</font></div><div><font color="#eef0ff" face="Arial, sans-serif">像網路線各種標準，和集線器(hub)都是這層的東西。</font></div><div><font color="#eef0ff" face="Arial, sans-serif"><br></font></div><div><font color="#eef0ff" face="Arial, sans-serif">以上就是OSI的七層架構，越上面是越高層 而越下面則是越底層。本文章是用比較淺顯的方式說明，如果需要比較專業的介紹可以參考這篇文章:</font></div><div><font color="#eef0ff" face="Arial, sans-serif"><a href="https://hackmd.io/@rgnkud/B13cOR-Pp" target="blank_">https://hackmd.io/@rgnkud/B13cOR-Pp</a><br></font></div><div><br></div><div>那這次介紹就到這邊，掰掰~~!!!</div>
+    <p>🔙 <a href="/">回首頁</a></p>
+  </main>
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+</body>
+</html>
