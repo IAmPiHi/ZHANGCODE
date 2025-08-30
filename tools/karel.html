@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+  <title>Stanford Karel 教學工具</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #e8ecef;
+      color: #333;
+      height: 100%;
+      
+      
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #2c3e50;
+    }
+    .main {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .canvas-container {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .controls {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      min-width: 250px;
+    }
+    .code-section {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      
+    }
+    #codestatus{
+        text-align: center;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .control-group label {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    button, input, select, textarea {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+    input, select, textarea {
+      background-color: #f8f9fa;
+      color: #333;
+      border: 1px solid #ced4da;
+    }
+    button:hover, select:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+    button:active, select:active, textarea:active {
+      transform: translateY(0);
+    }
+    button:disabled {
+      background-color: #95a5a6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    #world-size-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    #world-size-form input {
+      flex: 1;
+      min-width: 100px;
+    }
+    #mode-select {
+      background-color: #f8f9fa;
+    }
+    canvas {
+      border: 2px solid #2c3e50;
+      border-radius: 5px;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #e74c3c;
+      text-align: center;
+    }
+    #code-editor {
+      width: 98%;
+      height: 150px;
+      resize: vertical;
+      font-family: 'Courier New', monospace;
+    }
+    #variables-display {
+      background-color: #f8f9fa;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      max-height: 150px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+    }
+    footer {
+  text-align: center;
+  
+  color: #000000;
+  padding: 20px 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.95rem;
+  
+  letter-spacing: 0.5px;
+  border-radius: 0 0 10px 10px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Stanford Karel 教學工具</h1>
+    </div>
+
+    <div class="main">
+      <div class="canvas-container">
+        <div id="canvas-container"></div>
+      </div>
+      <div class="controls">
+        <div class="control-group">
+          <label>World 大小</label>
+          <div id="world-size-form">
+            <input type="number" id="world-width" min="5" max="20" value="10" placeholder="寬度">
+            <input type="number" id="world-height" min="5" max="20" value="10" placeholder="高度">
+            <button onclick="resetWorld()">重設 World</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>操作模式</label>
+          <select id="mode-select">
+            <option value="drag">拖曳 Karel</option>
+            <option value="place-wall">放置/移除牆壁</option>
+            <option value="place-beeper">放置/移除 Beeper</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Karel 指令</label>
+          <button onclick="moveKarel()" id="move-btn">Move</button>
+          <button onclick="turnLeft()" id="turn-left-btn">Turn Left</button>
+          <button onclick="putBeeper()" id="put-beeper-btn">Put Beeper</button>
+          <button onclick="pickBeeper()" id="pick-beeper-btn">Pick Beeper</button>
+        </div>
+        <div id="status"></div>
+      </div>
+    </div>
+
+    <div class="code-section">
+      <div class="control-group">
+        <label>Karel 程式碼</label>
+        <textarea id="code-editor" placeholder="輸入 Karel 程式碼..."></textarea>
+      </div>
+      <div class="control-group" style="flex-direction: row; gap: 10px; justify-content: space-between;">
+        <button onclick="startExecution()" style="flex: 1;">開始執行</button>
+        <button onclick="stepExecution()" id="step-btn" disabled style="flex: 1;">執行下一步</button>
+        <button onclick="stopExecution()" id="stop-btn" disabled style="flex: 1;">停止執行</button>
+      </div>
+      <div class="control-group">
+        <label>變數狀態</label>
+        <div id="variables-display"></div>
+      </div>
+      <div id ="codestatus"></div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+<footer>
+  張家銘 2025/07/31 製作．開放大眾用於教學輔助或重製，<strong>但不可使用該工具本身進行營利，包括自行重製版</strong> 🚫💰
+</footer>
+
+</html>
