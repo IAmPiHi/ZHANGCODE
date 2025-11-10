@@ -376,10 +376,16 @@ html {
 }
 
 .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
-    gap: 2em;
+  display: flex;
+  gap: 2em;
+  overflow-x: auto; /* 若超出一行，能橫向捲動 */
+  white-space: nowrap; /* 防止換行 */
 }
+.blog-grid > * {
+  flex: 0 0 auto; /* 防止元素被壓縮 */
+  width: 232px;   /* 固定寬度或自行調整 */
+}
+
 
 .blog-post {
     border: 1px solid rgba(255, 255, 255, 0.224);
@@ -526,3 +532,4 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
