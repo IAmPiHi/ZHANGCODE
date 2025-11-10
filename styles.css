@@ -384,7 +384,7 @@ html {
   overflow-y: hidden;
   scroll-behavior: smooth;
 
-  padding-top: 20px;   /* 上空隙 */
+  padding-top: 30px;   /* 上空隙 */
   padding-bottom: 20px; /* 下空隙 */
 }
 
@@ -541,6 +541,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
