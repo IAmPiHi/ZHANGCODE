@@ -385,7 +385,7 @@ html {
            }
 
 .blog-grid > * {
-  height: auto; /* 彈性高度，自動撐開 */
+   /* 彈性高度，自動撐開 */
   box-sizing: border-box;
 }
 
@@ -536,6 +536,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
