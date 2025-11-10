@@ -375,14 +375,19 @@ html {
     background-color: var(--hover-color);
 }
 
-.blog-grid { display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
-            gap: 2em;
-           overflow-x: auto; /* 若超出一行，能橫向捲動 */
-            overflow-y: hidden; /* 禁止上下捲動 */
-            padding-top: 30px;   /* 上空隙 */
-              padding-bottom: 20px; /* 下空隙 */
-           }
+.blog-grid { 
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(232px, max-content);
+  gap: 2em;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+
+  padding-top: 20px;   /* 上空隙 */
+  padding-bottom: 20px; /* 下空隙 */
+}
+
 
 .blog-grid > * {
    /* 彈性高度，自動撐開 */
@@ -536,6 +541,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
