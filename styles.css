@@ -380,7 +380,7 @@ html {
             gap: 2em;
            overflow-x: auto; /* 若超出一行，能橫向捲動 */
             overflow-y: hidden; /* 禁止上下捲動 */
-            padding-top: 20px;   /* 上空隙 */
+            padding-top: 30px;   /* 上空隙 */
               padding-bottom: 20px; /* 下空隙 */
            }
 
@@ -536,6 +536,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
