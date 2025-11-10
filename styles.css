@@ -375,14 +375,12 @@ html {
     background-color: var(--hover-color);
 }
 
-.blog-grid {
-  display: grid;
-  grid-auto-flow: column; /* 讓所有 item 橫向排成一行 */
-  grid-auto-columns: minmax(232px, max-content); /* 每格最小 232px，可依內容增寬 */
-  gap: 2em;
-  overflow-x: auto; /* 太長就可以橫向捲動 */
-  overflow-y: visible; /* 高度可依內容自動增高 */
-}
+.blog-grid { display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+            gap: 2em;
+           overflow-x: auto; /* 若超出一行，能橫向捲動 */
+              white-space: nowrap; /* 防止換行 */
+           }
 
 .blog-grid > * {
   height: auto; /* 彈性高度，自動撐開 */
@@ -536,6 +534,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
