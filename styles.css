@@ -379,7 +379,7 @@ html {
             grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
             gap: 2em;
            overflow-x: auto; /* 若超出一行，能橫向捲動 */
-              white-space: nowrap; /* 防止換行 */
+              
            }
 
 .blog-grid > * {
@@ -534,6 +534,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 
 
 
