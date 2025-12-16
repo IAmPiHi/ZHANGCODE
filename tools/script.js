@@ -339,11 +339,11 @@ function preprocessCode(codeLines) {
     else if (line.match(/^end$/)) {
       instruction.type = 'none';
     }
-      else if (line.match(/^turn_left\(\)$/)) {
+      else if (line.match(/^turnLeft\(\)$/)) {
       instruction.type = 'turnLeft';
-    } else if (line.match(/^put_beeper\(\)$/)) {
+    } else if (line.match(/^putBeeper\(\)$/)) {
       instruction.type = 'putBeeper';
-    } else if (line.match(/^pick_beeper\(\)$/)) {
+    } else if (line.match(/^pickBeeper\(\)$/)) {
       instruction.type = 'pickBeeper';
     } else if (line.match(/^(\w+) = (\d+)$/)) {
       instruction.type = 'assign';
@@ -593,4 +593,5 @@ function stepExecution() {
 document.getElementById('mode-select').addEventListener('change', function() {
   mode = this.value;
   updateStatus('模式切換為：' + (mode === 'drag' ? '拖曳 Karel' : mode === 'place-wall' ? '放置/移除牆壁' : '放置/移除 Beeper'));
+
 });
