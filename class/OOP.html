@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OOP semester project</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+  <script>hljs.highlightAll();</script>
+  <script>
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+    function contact(){
+      if (isMobile()) {
+        location.href = "/mobile#contact"
+      } else{
+        location.href = "/#contact"
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --neon-blue: #00bfff;
+      --glow-green: #24ff72;
+      --bg-dark: #0a0a0a;
+      --text-light: #dddddd;
+      --code-bg: #1a1a1a;
+      --highlight: #d21dab;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 100px 30px 50px;
+    }
+
+    h1, h2, h3 {
+      color: var(--glow-green);
+      text-shadow: 0 0 8px var(--glow-green);
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--neon-blue);
+      margin-bottom: 2em;
+      text-shadow: 0 0 5px var(--neon-blue);
+    }
+
+    a {
+      color: var(--neon-blue);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--highlight);
+    }
+
+    pre {
+      background-color: var(--code-bg);
+      color: #0ff;
+      padding: 1em;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      margin: 1.5em 0;
+      box-shadow: 0 0 10px #00fff7a4;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      background-color: #111;
+      color: #0ff;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, #00bfff, transparent);
+      margin: 2em 0;
+    }
+
+    ul {
+      padding-left: 1.5em;
+    }
+
+    ul li {
+      margin-bottom: 0.5em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      background-color: #1a1a1a;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: var(--neon-blue);
+      animation: blink 1s step-end infinite;
+      margin-left: 3px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: -1.2em;
+      width: 97vw;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 1em 2em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+      border-bottom: 1px solid #00bfff44;
+      
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--neon-blue);
+      cursor: pointer;
+      text-shadow: 0 0 10px var(--neon-blue);
+      text-decoration: none; 
+      
+    }
+    .logo:hover,
+    .logo:focus {
+        transform: scale(1.1);
+        color:#0ff
+        
+    }
+
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5vw;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-blue);
+    }
+    img {
+  border: 2px solid #0ff; 
+  border-radius: 10px; /* 微微圓角 */
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset; /* 外發光 + 內發光 */
+  background-color: #000; 
+  padding: 5px; /* 邊框內空隙 */
+  transition: all 0.3s ease-in-out; 
+  width: 65%;
+  height: 70%;
+}
+
+img:hover {
+  box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
+  transform: scale(1.03); 
+}
+  </style>
+  
+</head>
+<body>
+  <nav>
+    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <ul class="nav-links">
+      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>OOP semester project</h1>
+    <p class="subtitle">Chris · 2025/12/17</p>
+    <hr>
+    
+    <p>Google Drive:</p><p><a href="https://drive.google.com/drive/folders/12ZJ25vxU681Uzoxwt-7Cx40DgUN2ujiZ?usp=drive_link">https://drive.google.com/drive/folders/12ZJ25vxU681Uzoxwt-7Cx40DgUN2ujiZ?usp=drive_link</a></p><p>Source Code(GitHub):</p><p><a href="https://github.com/IAmPiHi/PacMan-OOP-">IAmPiHi/PacMan-OOP-</a></p><p><br></p><p><br></p>
+  
+    <p>🔙 <a href="/">回首頁</a></p>
+  </main>
+  <footer>
+    &copy; 2025 ZHANGCODE. BY. 張家銘
+  </footer>
+</body>
+</html>
