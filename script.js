@@ -1,4 +1,4 @@
-const text = "在熱情被現實澆熄以前 好好燃燒吧!";
+const text = "Stay Motivated!";
 const target = document.getElementById("animated-text");
 
 let delay = 0;
@@ -58,3 +58,4 @@ function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   location.hash = '';
 }
+
