@@ -3,215 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>了解Computer Science能大幅提升程式能力? </title>
+  <meta name="description" content="了解Computer Science能大幅提升程式能力? · ZHANGCODE">
+  <title>了解Computer Science能大幅提升程式能力? · ZHANGCODE</title>
   <link rel="icon" href="LOGO.ico" type="image/x-icon">
-  <!-- Prism.js 語法高亮 CDN -->
-<!-- CSS 主題（可換其他） -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
-<!-- Highlight.js 本體 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<!-- C++ 模組（選擇性） -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
-<script>hljs.highlightAll();</script>
 
+  <!-- Syntax highlighting: tokyo-night-dark -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 
-
-  
-<script>
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-  function contact(){
-    if (isMobile()) {
-        location.href = "/mobile#contact"
-    }
-    else{
-        location.href = "/#contact"
-    }
-  }
-
-  </script>
-  <style>
-    :root {
-      --neon-blue: #00bfff;
-      --glow-green: #24ff72;
-      --bg-dark: #0a0a0a;
-      --text-light: #dddddd;
-      --code-bg: #1a1a1a;
-      --highlight: #d21dab;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.8;
-    }
-
-    main {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 100px 30px 50px;
-    }
-
-    h1, h2, h3 {
-      color: var(--glow-green);
-      text-shadow: 0 0 8px var(--glow-green);
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--neon-blue);
-      margin-bottom: 2em;
-      text-shadow: 0 0 5px var(--neon-blue);
-    }
-
-    a {
-      color: var(--neon-blue);
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: var(--highlight);
-    }
-
-    pre {
-      background-color: var(--code-bg);
-      color: #0ff;
-      padding: 1em;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: 'Courier New', monospace;
-      margin: 1.5em 0;
-      box-shadow: 0 0 10px #00fff7a4;
-    }
-
-    code {
-      font-family: 'Courier New', monospace;
-      background-color: #111;
-      color: #0ff;
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, #00bfff, transparent);
-      margin: 2em 0;
-    }
-
-    ul {
-      padding-left: 1.5em;
-    }
-
-    ul li {
-      margin-bottom: 0.5em;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #1a1a1a;
-      color: #888;
-      font-size: 0.9em;
-      border-top: 1px solid #444;
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: var(--neon-blue);
-      animation: blink 1s step-end infinite;
-      margin-left: 3px;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: -1.2em;
-      width: 97vw;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-      border-bottom: 1px solid #00bfff44;
-      
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--neon-blue);
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--neon-blue);
-      text-decoration: none; 
-      
-    }
-    .logo:hover,
-    .logo:focus {
-        transform: scale(1.1);
-        color:#0ff
-        
-    }
-
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5vw;
-    }
-
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--neon-blue);
-    }
-    .tech-img {
-  border: 2px solid #0ff; 
-  border-radius: 10px; /* 微微圓角 */
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset; /* 外發光 + 內發光 */
-  background-color: #000; 
-  padding: 5px; /* 邊框內空隙 */
-  transition: all 0.3s ease-in-out; 
-}
-
-.tech-img:hover {
-  box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
-  transform: scale(1.03); 
-}
-  </style>
+  <link rel="stylesheet" href="post-theme.css">
+  <script src="post-theme.js"></script>
 </head>
 <body>
 
   <nav>
-    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <div class="logo" onclick="location.href='https://zhangcode.ddns.net'">ZHANGCODE</div>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+      <li><a href="https://zhangcode.ddns.net/#contact">Contact</a></li>
     </ul>
-   
   </nav>
 
   <main>
-    <h1>💻了解Computer Science能大幅提升程式能力?</h1>
-    <p class="subtitle">張家銘 · 2025/07/26</p>
-    <hr>
+    <div class="post-eyebrow">ZHANGCODE ARCHIVE</div>
+    <h1>💻 了解Computer Science能大幅提升程式能力?</h1>
+    <div class="post-meta">
+      <span class="post-author">張家銘</span>
+      <span class="post-sep">·</span>
+      <span class="post-date">2025/07/26</span>
+      <span class="post-sep">·</span>
+      <span class="post-readtime" id="readTime">計算中…</span>
+    </div>
+    <hr class="post-divider">
 
     <p>其實說白了，打程式就是在請電腦做某些特定的事情。但其中本來就有很多動作是牽涉到到腦運行的底層邏輯，例如C++的指標、或是你想繪製圖表(Bitmap)等等 都是Computer Science涵蓋的範圍。但是台灣的教育制度有點怪，資工算是IC + 一點點的CS 而資管則更像是IM + 一點點CS似乎沒有完全純CS的科系，而且學校學一些CS概念的時候也並沒有把他和程式做連結 這就讓人需要額外去理解。像國外很多頂尖大學都會把CS和程式做連結一起教學，只能說人家會強不是沒有原因。<br>接下來呢~ 下面就來舉幾個例子讓大家了解為什麼CS那麼重要好了!</p>
 
@@ -223,10 +52,10 @@
       <li>float : 4 bytes</li>
       <li>double : 8 bytes</li>
       <li>char : 1 bytes</li>
-      
     </ul>
-     <p>那我們知道這個要幹嘛勒? 來參考一下下面的範例</p>
-    <h2>💻  程式碼範例</h2>
+    <p>那我們知道這個要幹嘛勒? 來參考一下下面的範例</p>
+
+    <h2>💻 程式碼範例</h2>
     <pre><code class="language-cpp">
 #include &lt;iostream&gt;
 using namespace std;
@@ -245,13 +74,13 @@ int main() {
 
     return 0;
 }
-
 </code></pre>
 
-<p>執行結果:</p>
-<img src="pic/other001a.png" class="tech-img">
-<p>你可以看到印出的位址(指標)偏移了4 這就是因為一個int佔4bytes，並且陣列就是一連串放在一起的指標。而當你把一個指向陣列的指標類型變數做+1(也就是偏移1時)程式就會自動幫你加4bytes了(根據不同類型變數大小) 指向下一個index。<br>其他類型變數也是相同效果 就不多贅述了。 相信各位一定可以舉一反三 對吧 : )</p>
-    <h2>🗺️ Bitmap?🗣️位元地圖?</h2>
+    <p>執行結果:</p>
+    <img src="pic/other001a.png" alt="執行結果截圖">
+    <p>你可以看到印出的位址(指標)偏移了4 這就是因為一個int佔4bytes，並且陣列就是一連串放在一起的指標。而當你把一個指向陣列的指標類型變數做+1(也就是偏移1時)程式就會自動幫你加4bytes了(根據不同類型變數大小) 指向下一個index。<br>其他類型變數也是相同效果 就不多贅述了。 相信各位一定可以舉一反三 對吧 : )</p>
+
+    <h2>🗺️ Bitmap? 位元地圖?</h2>
     <p>我們都知道一張圖片(非向量圖)是由一個 每一格皆包含RGB的元素的二維陣列組成 對吧~? 嗯...對吧?</p>
     <p>所以你知道為啥你把一張圖片放很大的時候會發現他開始有點像素感了吧~ 因為他就真的是一格一格的RGB所組成</p>
     <p>下面給你看一個簡單的範例，也許你就能夠更加理解。</p>
@@ -279,18 +108,17 @@ int main() {
     image[1][0] = {255, 255, 0}; // 黃
     image[1][1] = {255, 255, 255}; // 白
     image[1][2] = {0, 0, 0};     // 黑
-    }
-    </code></pre>
+}
+</code></pre>
     <p>就是這樣，相信你已經領悟到了一些東東(應該吧)，我們平常在看的圖片基本就是類似上面那樣的邏輯。上面的範例就是一張解析度3x2的圖片，一般圖片螢幕解析度大部分都是1920x1080。而如果真的想要利用bitmap繪製圖表，例如:折線圖那些的 不同語言都會有不同的函式庫，可以去做使用。這邊就留給各位自行去研究了~</p>
-    <p>那這次文章就先到這啦，如果你有興趣了解更多CS相關知識可以寄信到我的MAIL。我覺得不錯也許就可以再寫一篇文章 或是有問題也可以提問，我看到就會回答。 那就下次見啦 掰掰~~
+    <p>那這次文章就先到這啦，如果你有興趣了解更多CS相關知識可以寄信到我的MAIL。我覺得不錯也許就可以再寫一篇文章 或是有問題也可以提問，我看到就會回答。 那就下次見啦 掰掰~~</p>
 
-    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+    <div class="post-footer-nav">
+      <a href="https://zhangcode.ddns.net/" class="back-link">← 回到首頁</a>
+    </div>
   </main>
 
-  <footer>
-    &copy; 2025 ZHANGCODE. BY. 張家銘
-  </footer>
-
+  <footer>&copy; 2026 ZHANGCODE · 張家銘</footer>
 
 </body>
 </html>

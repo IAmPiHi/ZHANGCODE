@@ -3,246 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🤖AI基礎理論知識 解密YT演算法!</title>
+  <meta name="description" content="AI基礎理論知識 解密YT演算法! · ZHANGCODE">
+  <title>AI基礎理論知識 解密YT演算法! · ZHANGCODE</title>
   <link rel="icon" href="LOGO.ico" type="image/x-icon">
+
+  <!-- Syntax highlighting: tokyo-night-dark -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 
-  <script>hljs.highlightAll();</script>
-  <script>
-    function isMobile() {
-      return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    }
-    function contact(){
-      if (isMobile()) {
-        location.href = "/mobile#contact"
-      } else{
-        location.href = "/#contact"
-      }
-    }
-  </script>
-  <style>
-    :root {
-      --neon-blue: #00bfff;
-      --glow-green: #24ff72;
-      --bg-dark: #0a0a0a;
-      --text-light: #dddddd;
-      --code-bg: #1a1a1a;
-      --highlight: #d21dab;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.8;
-    }
-
-    main {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 100px 30px 50px;
-    }
-
-    h1, h2, h3 {
-      color: var(--glow-green);
-      text-shadow: 0 0 8px var(--glow-green);
-    }
-
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--neon-blue);
-      margin-bottom: 2em;
-      text-shadow: 0 0 5px var(--neon-blue);
-    }
-
-    a {
-      color: var(--neon-blue);
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: var(--highlight);
-    }
-
-    pre {
-      background-color: var(--code-bg);
-      color: #0ff;
-      padding: 1em;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: 'Courier New', monospace;
-      margin: 1.5em 0;
-      box-shadow: 0 0 10px #00fff7a4;
-    }
-
-    code {
-      font-family: 'Courier New', monospace;
-      background-color: #111;
-      color: #0ff;
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, #00bfff, transparent);
-      margin: 2em 0;
-    }
-
-    ul {
-      padding-left: 1.5em;
-    }
-
-    ul li {
-      margin-bottom: 0.5em;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #1a1a1a;
-      color: #888;
-      font-size: 0.9em;
-      border-top: 1px solid #444;
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      width: 10px;
-      background-color: var(--neon-blue);
-      animation: blink 1s step-end infinite;
-      margin-left: 3px;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
-    nav {
-      position: fixed;
-      top: 0;
-      left: -1.2em;
-      width: 97vw;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-      border-bottom: 1px solid #00bfff44;
-      
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--neon-blue);
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--neon-blue);
-      text-decoration: none; 
-      
-    }
-    .logo:hover,
-    .logo:focus {
-        transform: scale(1.1);
-        color:#0ff
-        
-    }
-
-
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5vw;
-    }
-
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: var(--neon-blue);
-    }
-    img {
-  border: 2px solid #0ff; 
-  border-radius: 10px; /* 微微圓角 */
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff inset; /* 外發光 + 內發光 */
-  background-color: #000; 
-  padding: 5px; /* 邊框內空隙 */
-  transition: all 0.3s ease-in-out; 
-  width: 65%;
-  height: 70%;
-}
-
-img:hover {
-  box-shadow: 0 0 15px #0ff, 0 0 25px #0ff inset;
-  transform: scale(1.03); 
-}
-  </style>
-  
+  <link rel="stylesheet" href="post-theme.css">
+  <script src="post-theme.js"></script>
 </head>
 <body>
+
   <nav>
-    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <div class="logo" onclick="location.href='https://zhangcode.ddns.net'">ZHANGCODE</div>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+      <li><a href="https://zhangcode.ddns.net/#contact">Contact</a></li>
     </ul>
   </nav>
+
   <main>
-    <h1>🤖AI基礎理論知識 解密YT演算法!</h1>
-    <p class="subtitle">張家銘 · 2025/08/17</p>
-    <hr>
-    <p>現在人工智慧是非常火熱的話題，今天就來帶大家簡單的認識一下AI吧~&nbsp;&nbsp;</p><p>先從最簡單的開始介紹</p><h2>Linear Regession</h2><div>當我們可以用簡單的一條線大概的抓到輸入與輸出的關係，那我們就可以使用這個方法。</div><div>他的數學公式大概像 :</div><div><span style="background-color: rgb(56, 56, 56);"><font color="#ff0000"><pre style=""><span style="font-size: 18px; white-space: normal; font-family: Arial, sans-serif;">y = b₀ + b₁x₁ + b₂x₂ + ... + bₙxₙ</span></pre></font></span></div><div><span style="text-wrap-mode: nowrap; color: rgb(238, 240, 255); font-family: Arial, sans-serif; background-color: rgb(0, 0, 0);">y是輸出，x則是各個輸入。</span></div><div><span style="text-wrap-mode: nowrap; color: rgb(238, 240, 255); font-family: Arial, sans-serif; background-color: rgb(0, 0, 0);"><br></span></div><h2>AI做了什麼呢?
-</h2><div><div>AI在這裡做的事你給他大量的y和x資料，而AI會自動去推算出各個b可能的值。</div><div>而隨著你餵它的資料越來越多，它推算出來的b會越加準確!</div><div>這個方法適用於簡單的問題，例如:房子的坪數、房齡、距離捷運站的距離 和 房價的關係</div><div>也就是你可以看見簡單的線性關係的問題!</div><div>像剛剛的例子: 房子的坪數、房齡、距離捷運站的距離 都和最終房價可能有一定的關係。</div><div>而當AI推算出可能的b之後 你把房子的坪數、房齡、距離捷運站的距離輸入進去，就可以推測出可能的房價。</div></div><h2>Logicstic Regession</h2><div>再來呢~ 是關於可能性的問題!讓AI去預測某個東西的可能性大概多少，0是完全不可能1是最有可能。</div><div>他的公式呢基本上跟上面一樣，但是他多了一個東西叫做<b>sigmoid function</b>這個function的作用就是把結果限縮在0~1這個範圍之中。</div><div>讓我們來看看:</div><div><img src="pic/other00401.png"></div><div>把整個y帶進去sigmoid就可以得到被限縮在0~1的一個值(Logistic Regression 會先算出一個線性組合 (b₀ + b₁x₁ + …)，然後把它丟進 sigmoid 函數，把數值壓縮到 0~1。)。這個的用途最常見的例子就是垃圾郵件判斷，餵給他一堆的垃圾郵件和正常郵件，垃圾郵件標記:1 正常標記:0。這樣之後你給他一封信AI就能夠大概估出可能是垃圾郵件的機率!</div><h2>神經網路? 那啥?</h2><div>你一定聽過神經網路這個詞超多次了吧!今天就來告訴你那是啥!</div><div>其實就是像下圖這樣把一堆公式"串起來" (通常會比這複雜很多啦，就是一大坨串在一起。然後好幾層!)</div><div><img src="pic/other00402.png"></div><div>這個時候AI要找出來的係數就會變得更加複雜，而輸入和輸出也可能沒有直接的線性關係。</div><div>例如:影片推薦的演算法</div><div><br></div><div><h1>這些是 Netflix、YouTube、Spotify 現在用的主流:</h1>
-<h3 data-start="696" data-end="722">(A) 嵌入向量 (Embedding)</h3>
-<ul data-start="723" data-end="835">
-<li data-start="723" data-end="767">
-<p data-start="725" data-end="767"><strong data-start="725" data-end="732">使用者</strong>：把一個人（看過的影片、偏好）轉成一個向量 (例如 128 維度)</p>
-</li>
-<li data-start="768" data-end="801">
-<p data-start="770" data-end="801"><strong data-start="770" data-end="776">影片</strong>：把影片的資訊（標籤、標題、語意）轉成一個向量</p>
-</li>
-<li data-start="802" data-end="835">
-<p data-start="804" data-end="835">→ 這些向量放到一個「高維空間」裡，越相近 = 越可能喜歡</p>
-</li>
-</ul>
-<h3 data-start="837" data-end="853">(B) 神經網路學習</h3>
-<ul data-start="854" data-end="1009">
-<li data-start="854" data-end="901">
-<p data-start="856" data-end="901">神經網路會學一個函數 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>u</mi><mi>s</mi><mi>e</mi><mi>r</mi><mo separator="true">,</mo><mi>v</mi><mi>i</mi><mi>d</mi><mi>e</mi><mi>o</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(user, video)</annotation></semantics></math></span></span>→ 輸出「喜歡的機率」</p>
-</li>
-<li data-start="902" data-end="949">
-<p data-start="904" data-end="949">這裡會有很多參數（weights、bias），用 <strong data-start="929" data-end="944">反向傳播 + 梯度下降</strong> 訓練 (反向傳播:就是如果推薦不準確，那AI就會在神經網路裡面一層一層往回推去看要怎麼調整。 而梯度下降就是假如你沒點某個影片，YOUTUBE就走心。把它往這部影片維度距離移太遠，但其實使用者可能只是這時候不想看，或不小心沒看到這部。移的太猛導致推薦失準，所以要讓偏移量下降，或調整到適合的大小。阿如果你一直重複觀看一直按讚那它就會往那個影片的方向提升多一點!)</p></li>
-<li data-start="950" data-end="1009">
-<p data-start="952" data-end="1009">損失函數常用 <strong data-start="959" data-end="983">binary cross entropy</strong>，也就是「看過的影片 = 1，沒看過的 = 0」(也就是你沒點進去看的AI就會給它稍微扣分，他會稍微降低這個方向的內容。而當然如果你點倒讚之類的，就會給它大扣分!判定你可能不喜歡~ 此外:觀看時間、重播次數 也會是判斷的依據)</p>
-</li>
-</ul>
-<h3 data-start="1011" data-end="1029">(C) 大量資料的必要性</h3>
-<ul data-start="1030" data-end="1148">
-<li data-start="1030" data-end="1095">
-<p data-start="1032" data-end="1095">因為神經網路參數很多（可能上百萬甚至上億），如果資料不夠，就容易 <strong data-start="1065" data-end="1093">overfit（記住訓練資料，但學不到泛化規則）</strong></p>
-</li>
-<li data-start="1096" data-end="1148">
-<p data-start="1098" data-end="1148">YouTube 每天幾十億次觀看，Netflix 幾億用戶 → 這就是為什麼他們能用超大 NN。</p></li></ul><div>好啦~以上就是今天的文章啦。希望大家有更加理解AI，有問題Mail我吧~!!! 掰掰!</div></div><br>參考影片:<a href="https://youtu.be/vat2Mxu71VE?si=vO2qpkVf1lgBXz82">點我</a>
-    <p>🔙 <a href="/">回首頁</a></p>
+    <div class="post-eyebrow">ZHANGCODE ARCHIVE</div>
+    <h1>🤖 AI基礎理論知識 解密YT演算法!</h1>
+    <div class="post-meta">
+      <span class="post-author">張家銘</span>
+      <span class="post-sep">·</span>
+      <span class="post-date">2025/08/17</span>
+      <span class="post-sep">·</span>
+      <span class="post-readtime" id="readTime">計算中…</span>
+    </div>
+    <hr class="post-divider">
+
+    <p>現在人工智慧是非常火熱的話題，今天就來帶大家簡單的認識一下AI吧~&nbsp;&nbsp;</p>
+    <p>先從最簡單的開始介紹</p>
+
+    <h2>Linear Regression</h2>
+    <p>當我們可以用簡單的一條線大概的抓到輸入與輸出的關係，那我們就可以使用這個方法。他的數學公式大概像：</p>
+    <pre><code class="language-plaintext">y = b₀ + b₁x₁ + b₂x₂ + ... + bₙxₙ</code></pre>
+    <p>y是輸出，x則是各個輸入。</p>
+
+    <h2>AI做了什麼呢?</h2>
+    <p>AI在這裡做的事你給他大量的y和x資料，而AI會自動去推算出各個b可能的值。而隨著你餵它的資料越來越多，它推算出來的b會越加準確!</p>
+    <p>這個方法適用於簡單的問題，例如:房子的坪數、房齡、距離捷運站的距離 和 房價的關係。也就是你可以看見簡單的線性關係的問題!</p>
+    <p>像剛剛的例子: 房子的坪數、房齡、距離捷運站的距離 都和最終房價可能有一定的關係。而當AI推算出可能的b之後 你把房子的坪數、房齡、距離捷運站的距離輸入進去，就可以推測出可能的房價。</p>
+
+    <h2>Logistic Regression</h2>
+    <p>再來呢~ 是關於可能性的問題!讓AI去預測某個東西的可能性大概多少，0是完全不可能1是最有可能。他的公式呢基本上跟上面一樣，但是他多了一個東西叫做<b>sigmoid function</b>這個function的作用就是把結果限縮在0~1這個範圍之中。</p>
+    <p>讓我們來看看：</p>
+    <img src="pic/other00401.png" alt="Sigmoid function 示意圖">
+    <p>把整個y帶進去sigmoid就可以得到被限縮在0~1的一個值。這個的用途最常見的例子就是垃圾郵件判斷，餵給他一堆的垃圾郵件和正常郵件，垃圾郵件標記:1 正常標記:0。這樣之後你給他一封信AI就能夠大概估出可能是垃圾郵件的機率!</p>
+
+    <h2>神經網路? 那啥?</h2>
+    <p>你一定聽過神經網路這個詞超多次了吧!今天就來告訴你那是啥!其實就是像下圖這樣把一堆公式"串起來" (通常會比這複雜很多啦，就是一大坨串在一起。然後好幾層!)</p>
+    <img src="pic/other00402.png" alt="神經網路示意圖">
+    <p>這個時候AI要找出來的係數就會變得更加複雜，而輸入和輸出也可能沒有直接的線性關係。例如:影片推薦的演算法</p>
+
+    <h2>這些是 Netflix、YouTube、Spotify 現在用的主流</h2>
+
+    <h3>(A) 嵌入向量 (Embedding)</h3>
+    <ul>
+      <li><strong>使用者</strong>：把一個人（看過的影片、偏好）轉成一個向量 (例如 128 維度)</li>
+      <li><strong>影片</strong>：把影片的資訊（標籤、標題、語意）轉成一個向量</li>
+      <li>→ 這些向量放到一個「高維空間」裡，越相近 = 越可能喜歡</li>
+    </ul>
+
+    <h3>(B) 神經網路學習</h3>
+    <ul>
+      <li>神經網路會學一個函數 f(user, video) → 輸出「喜歡的機率」</li>
+      <li>這裡會有很多參數（weights、bias），用 <strong>反向傳播 + 梯度下降</strong> 訓練 (反向傳播:就是如果推薦不準確，那AI就會在神經網路裡面一層一層往回推去看要怎麼調整。 而梯度下降就是假如你沒點某個影片，YOUTUBE就走心。把它往這部影片維度距離移太遠，但其實使用者可能只是這時候不想看，或不小心沒看到這部。移的太猛導致推薦失準，所以要讓偏移量下降，或調整到適合的大小。阿如果你一直重複觀看一直按讚那它就會往那個影片的方向提升多一點!)</li>
+      <li>損失函數常用 <strong>binary cross entropy</strong>，也就是「看過的影片 = 1，沒看過的 = 0」(也就是你沒點進去看的AI就會給它稍微扣分，他會稍微降低這個方向的內容。而當然如果你點倒讚之類的，就會給它大扣分!判定你可能不喜歡~ 此外:觀看時間、重播次數 也會是判斷的依據)</li>
+    </ul>
+
+    <h3>(C) 大量資料的必要性</h3>
+    <ul>
+      <li>因為神經網路參數很多（可能上百萬甚至上億），如果資料不夠，就容易 <strong>overfit（記住訓練資料，但學不到泛化規則）</strong></li>
+      <li>YouTube 每天幾十億次觀看，Netflix 幾億用戶 → 這就是為什麼他們能用超大 NN。</li>
+    </ul>
+
+    <p>好啦~以上就是今天的文章啦。希望大家有更加理解AI，有問題Mail我吧~!!! 掰掰!</p>
+    <p>參考影片: <a href="https://youtu.be/vat2Mxu71VE?si=vO2qpkVf1lgBXz82">點我</a></p>
+
+    <div class="post-footer-nav">
+      <a href="https://zhangcode.ddns.net/" class="back-link">← 回到首頁</a>
+    </div>
   </main>
-  <footer>
-    &copy; 2025 ZHANGCODE. BY. 張家銘
-  </footer>
+
+  <footer>&copy; 2026 ZHANGCODE · 張家銘</footer>
+
 </body>
-
 </html>
-

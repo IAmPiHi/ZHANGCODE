@@ -3,156 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GCC編譯器運作原理 + 動態/靜態連結解析</title>
+  <meta name="description" content="GCC編譯器運作原理 + 動態/靜態連結解析 · ZHANGCODE">
+  <title>GCC編譯器運作原理 + 動態/靜態連結解析 · ZHANGCODE</title>
   <link rel="icon" href="LOGO.ico" type="image/x-icon">
 
-  <!-- Highlight.js for SQL -->
+  <!-- Syntax highlighting: tokyo-night-dark -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
-  <script>hljs.highlightAll();</script>
-  <script>
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 
-  function contact(){
-    if (isMobile()) {
-        location.href = "/mobile#contact"
-    }
-    else{
-        location.href = "/#contact"
-    }
-  }
-
-  </script>
-  <!-- 原本你的 CSS 保留 -->
-  <style>
-    :root {
-       --neon-blue: #00bfff;
-      --glow-green: #24ff72;
-      --bg-dark: #0a0a0a;
-      --text-light: #dddddd;
-      --code-bg: #1a1a1a;
-      --highlight: #d21dab;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.8;
-    }
-    main {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 100px 30px 50px;
-    }
-    h1, h2, h3 {
-      color: var(--glow-green);
-      text-shadow: 0 0 8px var(--glow-green);
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--neon-blue);
-      margin-bottom: 2em;
-      text-shadow: 0 0 5px var(--neon-blue);
-    }
-    a {
-      color: var(--neon-blue);
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: var(--highlight);
-    }
-    pre {
-      background-color: var(--code-bg);
-      color: #0ff;
-      padding: 1em;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: 'Courier New', monospace;
-      margin: 1.5em 0;
-      box-shadow: 0 0 10px #00fff7a4;
-    }
-    code {
-      font-family: 'Courier New', monospace;
-      background-color: #111;
-      color: #0ff;
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-    }
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, #00bfff, transparent);
-      margin: 2em 0;
-    }
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #1a1a1a;
-      color: #888;
-      font-size: 0.9em;
-      border-top: 1px solid #444;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: -1.2em;
-      width: 97vw;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-      border-bottom: 1px solid #00bfff44;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--neon-blue);
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--neon-blue);
-      text-decoration: none; 
-    }
-    .logo:hover,
-    .logo:focus {
-        transform: scale(1.1);
-        color:#0ff
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5vw;
-    }
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    .nav-links a:hover {
-      color: var(--neon-blue);
-    }
-  </style>
+  <link rel="stylesheet" href="post-theme.css">
+  <script src="post-theme.js"></script>
 </head>
 <body>
 
   <nav>
-    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <div class="logo" onclick="location.href='https://zhangcode.ddns.net'">ZHANGCODE</div>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+      <li><a href="https://zhangcode.ddns.net/#contact">Contact</a></li>
     </ul>
   </nav>
 
   <main>
+    <div class="post-eyebrow">ZHANGCODE ARCHIVE</div>
     <h1>🔧 .dll 是什麼檔案？帶你了解 GCC 編譯器運作原理！</h1>
-    <p class="subtitle">張家銘 · 2025/08/16</p>
-    <hr>
+    <div class="post-meta">
+      <span class="post-author">張家銘</span>
+      <span class="post-sep">·</span>
+      <span class="post-date">2025/08/16</span>
+      <span class="post-sep">·</span>
+      <span class="post-readtime" id="readTime">計算中…</span>
+    </div>
+    <hr class="post-divider">
 
     <h2>⚙️ GCC 編譯流程</h2>
     <p>GCC (GNU Compiler Collection) 並不是單純「把 C 原始碼轉成可執行檔」的一個單一工具，而是一整套<strong>工具鏈 (toolchain)</strong>。雖然我們表面上只看到它能把 <code>.c</code> 檔轉成 <code>.exe</code>（Windows）或 <code>a.out</code>（Linux），但實際上它的中間過程分成好幾層：</p>
@@ -243,14 +131,14 @@ print(lib.add(10, 20))  # 輸出 30
 
     <p>這也是為什麼理解「編譯器 + 連結」的原理，可以讓你更靈活地整合不同語言與系統。</p>
     <p>今天的文章就到這裡啦，如果有任何問題歡迎聯絡我！</p>
-    <p>參考影片: <a href="https://youtu.be/XJC5WB2Bwrc?si=qSBi6o9ljzLx1cBX" target="_blank">點我</a> </p>
-    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
-</main>
+    <p>參考影片: <a href="https://youtu.be/XJC5WB2Bwrc?si=qSBi6o9ljzLx1cBX" target="_blank">點我</a></p>
 
+    <div class="post-footer-nav">
+      <a href="https://zhangcode.ddns.net/" class="back-link">← 回到首頁</a>
+    </div>
+  </main>
 
-  <footer>
-    &copy; 2025 ZHANGCODE. BY. 張家銘
-  </footer>
+  <footer>&copy; 2026 ZHANGCODE · 張家銘</footer>
 
 </body>
 </html>

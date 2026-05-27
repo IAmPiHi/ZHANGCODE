@@ -3,125 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZhangCode</title>
+  <meta name="description" content="ZHANGCODE - programming notes, projects, and learning logs by Zhang." />
+  <title>ZHANGCODE | 科技.未來</title>
+  <link rel="icon" href="LOGO.ico" type="image/x-icon" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="LOGO.ico" type="image/x-icon">
-  <script>
-    // 裝置偵測（簡單夠用版）
-    const isMobiles = /iPhone|iPod|Android|Mobile|Windows Phone/i.test(navigator.userAgent);
-    if (isMobiles) {
-      // 如果是手機，跳轉去 nophone.html
-      window.location.href = 'mobile.html';
-    }
-  </script>
 </head>
 <body>
-    <nav class="navbar">
-  <div class="logo" onclick="scrollToTop()">ZHANGCODE</div>
-  <ul class="nav-links">
-                <li><a href="#about">關於</a></li>
-                <li><a href="#blogs">內容</a></li>
-                <li><a href="#contact">聯絡版主</a></li>
-  </ul>
-</nav>
-  <section class="hero">
-    <video autoplay muted loop playsinline class="bg-video">
-      <source src="video.mp4" type="video/mp4" />
-    </video>
-    <div class="overlay">
-      <h1 id="animated-text"></h1>
-    </div>
-  </section>
-  <section id="content">
-  <section id="about" class="section-fade">
-    <h2 class="section-title">關於我</h2>
-    <div class="about-content">
-        <div class="about-text-container">
-    <div class="code-header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-        <span class="file-name">Developer.cs</span>
-    </div>
-    <div class="about-text">
-<span class="keyword">class</span> <span class="type">Developer</span> {
-    <span class="keyword">string</span> university = <span class="string">"NYUST_MIS"</span>;
-    
-    <span class="comment">// 榮譽成就</span>
-    <span class="type">Achievement</span> honors = {
-        Year: <span class="number">112</span>,
-        Event: <span class="string">"全國工科技藝競賽 - 軟體設計"</span>,
-        Result: <span class="string">"優勝"</span>
-    };
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <button class="logo" type="button" onclick="scrollToTop()" aria-label="Back to top">ZHANGCODE</button>
+      <ul class="nav-links">
+        <li><a href="#about">關於</a></li>
+        <li><a href="#projects">專案</a></li>
+        <li><a href="#blogs">文章</a></li>
+        <li><a href="#contact">聯繫</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <span class="comment">// 技術堆疊</span>
-    <span class="keyword">string</span>[] skill_set = {<span class="string">"C"</span>, <span class="string">"C++"</span>, <span class="string">"C#"</span>, <span class="string">"Python"</span>};
-
-    <span class="keyword">void</span> <span class="method">CoreInterests</span>() {
-        <span class="keyword">while</span> (alive) {
-            <span class="method">Build</span>(Tools_from_Scratch); <span class="comment">// 喜歡從底層建構</span>
-            <span class="method">Solve</span>(Math_Logic && Algorithms); <span class="comment">// 追求數學與邏輯</span>
-            <span class="method">Optimize</span>(Automation_Tasks, with = <span class="string">"Python"</span>);
-        }
-    }
-}
-    </div>
-</div>
-        <div class="about-image">
-            <img src="about.gif" alt="關於我們圖片" class="floating-image">
+  <main>
+    <section class="hero" aria-label="ZHANGCODE introduction">
+      <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
+      <video autoplay muted loop playsinline class="bg-video" poster="about.jpg">
+        <source src="video.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-scrim"></div>
+      <div class="hero-content">
+        <p class="eyebrow">NYUST MIS / Coding Notes / Tool Builder</p>
+        <h1 id="animated-text" aria-label="ZHANGCODE"></h1>
+        <p class="hero-copy">分享與記錄學習路線。分享看法。分享未來趨勢!</p>
+        <div class="hero-metrics" aria-label="Site highlights">
+          <div>
+            <strong>10+</strong>
+            <span>筆記</span>
+          </div>
+          <div>
+            <strong>4</strong>
+            <span>置頂專案</span>
+          </div>
+          <div>
+            <strong>∞</strong>
+            <span>創意</span>
+          </div>
         </div>
-    </div>
+        <div class="hero-actions">
+          <a class="primary-action" href="#blogs">瀏覽文章</a>
+          <a class="secondary-action" href="https://github.com/IAmPiHi" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#about" aria-label="Scroll to about section">↓</a>
+    </section>
 
-    <a href="https://github.com/IAmPiHi" target="_blank" rel="noopener noreferrer" class="github-section-link">
-        <svg height="32" viewBox="0 0 16 16" width="32" class="github-svg">
-            <path fill="white" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-        </svg>
-        <span>GitHub</span>
-    </a>
-</section>
+    <section id="about" class="section section-fade">
+      <div class="section-heading">
+        <p class="eyebrow">關於</p>
+        <h2>把學到的東西做成作品!</h2>
+      </div>
 
-        <section id="blogs" class="section-fade">
-            <h2 class="section-title">最新內容</h2>
-            <div class="search-container" >
-                <input type="text" id="search-input" placeholder="搜尋文章...">
-                <button id="search-button">搜尋</button>
-                <div id="sc"></div>
+      <div class="about-layout">
+        <div class="about-text-container" aria-label="Developer profile code block">
+          <div class="code-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="file-name">Developer.cs</span>
+          </div>
+          <pre class="about-text"><code><span class="keyword">class</span> <span class="type">Developer</span> {
+    <span class="keyword">string</span> university = <span class="string">"NYUST_MIS"</span>;
+    <span class="keyword">string</span>[] stack = { <span class="string">"C"</span>, <span class="string">"C++"</span>, <span class="string">"C#"</span>, <span class="string">"Python"</span> };
 
-            </div>
-           
-            <div id="filter-buttons" class="filter-container">
-                <button class="filter-btn" id="all" onclick="filterBlogs('all')">全部</button>
-                <button class="filter-btn" id="csharp" onclick="filterBlogs('csharp')">C#</button>
-                <button class="filter-btn" id="cpp" onclick="filterBlogs('cpp')">C++</button>
-                <button class="filter-btn" id="python" onclick="filterBlogs('python')">Python</button>
-                <button class="filter-btn" id="none" onclick="filterBlogs('none')">不分語言</button>
-            </div>
-            <div id="blog-container" class="blog-grid"></div>
-            <div id="pagination">
-                <button id="prev-page" onclick="changePage(-1)">上一頁</button>
-                <span id="page-info"></span>
-                <button id="next-page" onclick="changePage(1)">下一頁</button>
-            </div>
-        </section>
+    <span class="comment">// Core interests</span>
+    <span class="keyword">void</span> <span class="method">Build</span>() {
+        <span class="method">Create</span>(toolsFromScratch);
+        <span class="method">Solve</span>(mathLogic && algorithms);
+        <span class="method">Automate</span>(repeatedTasks);
+    }
+}</code></pre>
+        </div>
 
-        <section id="contact" class="section-fade">
-            <h2 class="section-title">聯絡版主</h2>
-            <div class="contact-content">
-                <p>如果有任何錯誤，或是問題。</p>
-                <p>請發送電子郵件到 <strong>0710ringe@gmail.com</strong></p>
-                <p>注意: 我不一定會看到，所以在等待的過程中先去做其他事吧。</p>
-            </div>
-        </section>
-        </section>
-    </main>
+        <div class="profile-panel">
+          <img src="about.gif" alt="ZHANGCODE profile animation" class="profile-image" />
+          <div class="profile-copy">
+            <h3>現在就開始學習</h3>
+            <p>這裡收藏我的技術筆記、解題記錄與小工具實驗。不只分享歷程，更分享所有細節。</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 ZHANGCODE. BY.張家銘</p>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
-    <script src="allpost.js"></script>
-    <script src="script2.js"></script>
-    <script src="script.js"></script>
+    <section id="projects" class="section section-fade">
+      <div class="section-heading">
+        <p class="eyebrow">GitHub</p>
+        <h2>置頂專案</h2>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+      <div class="projects-footer">
+        <a class="secondary-action" href="https://github.com/IAmPiHi" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" style="margin-right:6px">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/>
+          </svg>
+          查看全部專案
+        </a>
+      </div>
+    </section>
+
+    <section id="blogs" class="section section-fade">
+      <div class="section-heading">
+        <p class="eyebrow">文章</p>
+        <h2>文章與學習筆記</h2>
+      </div>
+
+      <div class="article-toolbar">
+        <label class="search-field" for="search-input">
+          <span class="visually-hidden">搜尋文章</span>
+          <input type="search" id="search-input" placeholder="搜尋標題或摘要..." autocomplete="off" />
+        </label>
+        <button id="search-button" class="toolbar-button" type="button">搜尋</button>
+        <button id="clear-button" class="toolbar-button muted" type="button" hidden>清除</button>
+      </div>
+
+      <div id="filter-buttons" class="filter-container" aria-label="Article categories">
+        <button class="filter-btn active" type="button" data-category="all">全部</button>
+        <button class="filter-btn" type="button" data-category="cs">電腦科學</button>
+        <button class="filter-btn" type="button" data-category="tools">工具應用</button>
+        <button class="filter-btn" type="button" data-category="programming">程式語言</button>
+        <button class="filter-btn" type="button" data-category="other">其他議題</button>
+      </div>
+
+      <div id="result-summary" class="result-summary" aria-live="polite"></div>
+      <div id="blog-container" class="blog-grid"></div>
+      <div id="pagination" class="pagination">
+        <button id="prev-page" type="button">上一頁</button>
+        <span id="page-info"></span>
+        <button id="next-page" type="button">下一頁</button>
+      </div>
+    </section>
+
+    <section id="contact" class="section section-fade contact-section">
+      <div class="section-heading">
+        <p class="eyebrow">聯繫</p>
+        <h2>一起交流想法</h2>
+      </div>
+      <div class="contact-content">
+        <p>如果你對文章、專案或合作有想法，歡迎寄信給我。</p>
+        <a class="mail-link" href="mailto:0710ringe@gmail.com">0710ringe@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 ZHANGCODE. Built by Zhang.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+  <script src="allpost.js"></script>
+  <script src="githubprojects.js"></script>
+  <script src="script2.js"></script>
+  <script src="script-projects.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

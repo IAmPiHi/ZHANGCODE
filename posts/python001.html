@@ -3,156 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flask vs Django 筆記筆記！</title>
+  <meta name="description" content="Flask vs Django 筆記筆記！ · ZHANGCODE">
+  <title>Flask vs Django 筆記筆記！ · ZHANGCODE</title>
   <link rel="icon" href="LOGO.ico" type="image/x-icon">
 
-  <!-- Highlight.js Python 版本語法高亮 -->
+  <!-- Syntax highlighting: tokyo-night-dark -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-  <script>hljs.highlightAll();</script>
-  <script>
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/csharp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
 
-  function contact(){
-    if (isMobile()) {
-        location.href = "/mobile#contact"
-    }
-    else{
-        location.href = "/#contact"
-    }
-  }
-
-  </script>
-  <!-- 你原本的風格 CSS 繼續保留 -->
-  <style>
-    :root {
-       --neon-blue: #00bfff;
-      --glow-green: #24ff72;
-      --bg-dark: #0a0a0a;
-      --text-light: #dddddd;
-      --code-bg: #1a1a1a;
-      --highlight: #d21dab;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      line-height: 1.8;
-    }
-    main {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 100px 30px 50px;
-    }
-    h1, h2, h3 {
-      color: var(--glow-green);
-      text-shadow: 0 0 8px var(--glow-green);
-    }
-    .subtitle {
-      font-size: 1.1rem;
-      color: var(--neon-blue);
-      margin-bottom: 2em;
-      text-shadow: 0 0 5px var(--neon-blue);
-    }
-    a {
-      color: var(--neon-blue);
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: var(--highlight);
-    }
-    pre {
-      background-color: var(--code-bg);
-      color: #0ff;
-      padding: 1em;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: 'Courier New', monospace;
-      margin: 1.5em 0;
-      box-shadow: 0 0 10px #00fff7a4;
-    }
-    code {
-      font-family: 'Courier New', monospace;
-      background-color: #111;
-      color: #0ff;
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-    }
-    hr {
-      border: none;
-      height: 1px;
-      background: linear-gradient(to right, #00bfff, transparent);
-      margin: 2em 0;
-    }
-    footer {
-      text-align: center;
-      padding: 1em;
-      background-color: #1a1a1a;
-      color: #888;
-      font-size: 0.9em;
-      border-top: 1px solid #444;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: -1.2em;
-      width: 97vw;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(10px);
-      padding: 1em 2em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 999;
-      border-bottom: 1px solid #00bfff44;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--neon-blue);
-      cursor: pointer;
-      text-shadow: 0 0 10px var(--neon-blue);
-      text-decoration: none; 
-    }
-    .logo:hover,
-    .logo:focus {
-        transform: scale(1.1);
-        color:#0ff
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5vw;
-    }
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    .nav-links a:hover {
-      color: var(--neon-blue);
-    }
-  </style>
+  <link rel="stylesheet" href="post-theme.css">
+  <script src="post-theme.js"></script>
 </head>
 <body>
 
   <nav>
-    <div class="logo" onclick="location.href='/index.html'">ZHANGCODE</div>
+    <div class="logo" onclick="location.href='https://zhangcode.ddns.net'">ZHANGCODE</div>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="contact()">意見反饋</a></li>
+      <li><a href="https://zhangcode.ddns.net/#contact">Contact</a></li>
     </ul>
   </nav>
 
   <main>
-    <h1>☝️Flask vs Django: What are their strengths?</h1>
-    <p class="subtitle">張家銘 · 2025/08/05</p>
-    <hr>
+    <div class="post-eyebrow">ZHANGCODE ARCHIVE</div>
+    <h1>☝️ Flask vs Django: What are their strengths?</h1>
+    <div class="post-meta">
+      <span class="post-author">張家銘</span>
+      <span class="post-sep">·</span>
+      <span class="post-date">2025/08/05</span>
+      <span class="post-sep">·</span>
+      <span class="post-readtime" id="readTime">計算中…</span>
+    </div>
+    <hr class="post-divider">
 
     <p>Python 最well-known的兩個後端，肯定就是他們兩個。那他們兩個有啥不同，各自有啥優劣勢呢~~? 今天這篇文章就是來幫助大家區分兩者的優劣勢!</p>
 
@@ -199,12 +87,12 @@ def home(request):
     <p>如上所示～ Django 要分好幾個檔案，還要設專案、設 app，流程嚴謹；而 Flask 你可以就一個檔案直接搞定。</p>
     <p>而這些特性也讓Django 通常安全性，完整性 更勝一籌。而且因為他們也有固定的社群在維護，你可以不用有很強的資安能力，他們可以幫你handle好一些繁瑣的工作(如session、cookie的處理)。</p>
     <p>而Flask通常是給比較小型的網站使用，因為他方便撰寫，不用分一堆檔案。而且自由度也比較高，你可以自己決定你要用什麼DB之類的。但缺點就是很多基礎的東西你要自己寫，就看個人需求囉~~!</p>
+
     <h2>🔍 差異總整理</h2>
     <ul>
       <li><strong>學習難度：</strong>Flask 比較輕鬆，Django 起步較陡</li>
       <li><strong>自由度：</strong>Flask 高（但你要自己組），Django 限制多（但幫你組好了）</li>
       <li><strong>開發速度：</strong>小案子 Flask 快，大案子 Django 穩</li>
-      
     </ul>
 
     <h2>🤔 總結:如何選擇？</h2>
@@ -219,12 +107,12 @@ def home(request):
 
     <p>那這篇 Flask vs Django 筆記就先醬啦～～<br>有想看的主題也可以寄EMAIL來告訴我，掰啦掰啦 👋</p>
 
-    <p>🔙 <a href="https://zhangcode.ddns.net/">回首頁</a></p>
+    <div class="post-footer-nav">
+      <a href="https://zhangcode.ddns.net/" class="back-link">← 回到首頁</a>
+    </div>
   </main>
 
-  <footer>
-    &copy; 2025 ZHANGCODE. BY. 張家銘
-  </footer>
+  <footer>&copy; 2026 ZHANGCODE · 張家銘</footer>
+
 </body>
 </html>
-
