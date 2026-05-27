@@ -281,12 +281,12 @@ function initScrollEffects() {
   const metrics = [...document.querySelectorAll(".hero-metrics div")];
   if (metrics.length) {
     gsap.fromTo(metrics,
-      { opacity: 0, y: 24, scale: 0.88 },
+      { opacity: 0, scale: 0.05 },
       {
-        opacity: 1, y: 0, scale: 1,
-        duration: 0.65,
-        stagger: 0.12,
-        ease: "back.out(1.3)",
+        opacity: 1, scale: 1,
+        duration: 0.48,
+        stagger: 0.22,
+        ease: "back.out(3.5)",
         delay: 1.92,
         clearProps: "all",
       }
