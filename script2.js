@@ -87,9 +87,15 @@ function renderBlogs() {
     visibleBlogs.forEach((blog) => blogContainer.appendChild(createBlogCard(blog)));
   }
 
+  // 卡片加入 DOM 後立刻同步設為不可見，避免出現一閃（不透過 RAF，在 paint 前完成）
+  if (window.gsap) {
+    const newCards = [...blogContainer.querySelectorAll(".blog-post")];
+    if (newCards.length) gsap.set(newCards, { opacity: 0, y: 30 });
+  }
+
   updatePagination(totalPages, filteredBlogs.length);
 
-  // 觸發卡片進場動畫，並刷新 ScrollTrigger 位置（頁面高度可能因文章數改變）
+  // 觸發卡片進場動畫，並刷新 ScrollTrigger 位置
   const isFirst = _isFirstBlogRender;
   _isFirstBlogRender = false;
   requestAnimationFrame(() => {
@@ -106,7 +112,7 @@ function animateBlogCards(useScrollTrigger) {
   if (cards.length === 0) return;
 
   gsap.killTweensOf(cards);
-  gsap.set(cards, { opacity: 0, y: 30 });
+  // 初始狀態已在 renderBlogs() 同步設定，此處不重複 set
 
   // 初次載入：等滾到 #blogs 才觸發
   const playInitial = () =>
@@ -217,10 +223,8 @@ function initScrollEffects() {
         ease: "power2.out",
         scrollTrigger: {
           trigger: section,
-          start: "top bottom",        // 元素一進入視窗底部就觸發
-          end: "top 20%",
-          toggleActions: "play none none reverse",
-          invalidateOnRefresh: true,  // 內容變動後重新計算位置
+          start: "top bottom",
+          once: true,   // 只播一次，ScrollTrigger.refresh() 不會重播造成閃爍
         },
       }
     );
