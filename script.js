@@ -50,23 +50,29 @@ function initHeroSweep() {
     sweep.className = "hero-sweep";
     sweep.setAttribute("aria-hidden", "true");
 
-    const sweepW = textW * 0.3;     // 光束寬度 ≈ 文字寬的 30%
-    sweep.style.left   = `${startX}px`;                               // 對齊 Z 的左緣
-    sweep.style.width  = `${sweepW}px`;
-    sweep.style.height = `${textRect.height * 1.1}px`;
-    sweep.style.top    = `${textRect.top - parentRect.top - textRect.height * 0.05}px`;
+    // 橢圓光圈：橫向稍寬（w = h * 1.35）
+    const h      = textRect.height * 3.4;
+    const w      = h * 1.35;
+    const halfW  = w / 2;
+    const halfH  = h / 2;
+
+    sweep.style.width  = `${w}px`;
+    sweep.style.height = `${h}px`;
+    sweep.style.left   = `${startX}px`;
+    sweep.style.top    = `${textRect.top - parentRect.top + textRect.height / 2 - halfH}px`;
 
     heroContent.appendChild(sweep);
 
-    // x: -sweepW → 從 Z 左側外飛入
-    // x: textW   → 光束左緣剛好到 E 右緣，自然離開，不超出
+    // 左→右→左 來回掃光，每次到端點停 1.5s
     gsap.fromTo(sweep,
-      { x: -sweepW },
+      { x: -halfW },
       {
-        x: textW,
-        duration: 2,
+        x: textW - halfW,
+        duration: 3.2,
         ease: "power1.inOut",
-        onComplete: () => sweep.remove(),
+        repeat: -1,       // 無限循環
+        yoyo: true,       // 原路折返（右→左與左→右速度相同）
+        repeatDelay: 1.5, // 每次到端點停 1.5s 再折返
       }
     );
   }, 2000);
