@@ -64,15 +64,14 @@ body::after {
   left: 0;
   pointer-events: none;
   z-index: 5;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(50, 212, 255, 0.08) 15%,
-    rgba(50, 212, 255, 0.52) 50%,
-    rgba(50, 212, 255, 0.08) 85%,
-    transparent 100%
+  background: radial-gradient(
+    ellipse 55% 50% at 50% 50%,
+    rgba(50, 212, 255, 0.18) 0%,
+    rgba(50, 212, 255, 0.06) 42%,
+    rgba(50, 212, 255, 0.01) 66%,
+    transparent 78%
   );
-  filter: blur(14px);
+  filter: none;
   mix-blend-mode: screen;
   will-change: transform;
 }

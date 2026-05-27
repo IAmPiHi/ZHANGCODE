@@ -280,17 +280,22 @@ function initScrollEffects() {
   // 4. Hero 數據卡片：依序從下方彈入（hero 已在視野內，頁面載入後執行）
   const metrics = [...document.querySelectorAll(".hero-metrics div")];
   if (metrics.length) {
-    gsap.fromTo(metrics,
-      { opacity: 0, scale: 0.05 },
-      {
-        opacity: 1, scale: 1,
-        duration: 0.48,
-        stagger: 0.22,
-        ease: "back.out(3.5)",
-        delay: 1.92,
-        clearProps: "all",
-      }
-    );
+    // metricPulse CSS animation 的 cascade 層級高於 inline style，
+    // 會蓋掉 GSAP 的 transform（scale）。先把它砍掉讓 GSAP 主導，
+    // 等入場動畫結束後再還原。
+    // ZHANGCODE 時間線：9字 × 0.15s delay + 0.72s 動畫 = 最後一字 1.92s 結束
+    metrics.forEach((el, i) => {
+      el.style.animation = "none";                          // 暫時關掉 CSS pulse
+      gsap.set(el, { opacity: 0, scale: 0.05, transformOrigin: "50% 50%" });
+
+      gsap.timeline({ delay: 1.92 + i * 0.42 })
+        .to(el, { opacity: 1, scale: 1.2, duration: 0.28, ease: "power2.out" })  // 衝出
+        .to(el, { scale: 1,   duration: 0.20, ease: "power2.in" })               // 彈回
+        .call(() => {
+          gsap.set(el, { clearProps: "all" }); // 清掉 GSAP inline style
+          el.style.animation = "";             // 還原 CSS metricPulse
+        });
+    });
   }
 
   // 5. Contact：mail link 從下彈入
