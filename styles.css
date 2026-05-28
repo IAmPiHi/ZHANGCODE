@@ -66,9 +66,9 @@ body::after {
   z-index: 5;
   background: radial-gradient(
     ellipse 55% 50% at 50% 50%,
-    rgba(50, 212, 255, 0.18) 0%,
-    rgba(50, 212, 255, 0.06) 42%,
-    rgba(50, 212, 255, 0.01) 66%,
+    rgba(50, 212, 255, 0.22) 0%,
+    rgba(50, 212, 255, 0.10) 42%,
+    rgba(50, 212, 255, 0.02) 66%,
     transparent 78%
   );
   filter: none;
@@ -269,6 +269,23 @@ a {
   text-shadow:
     0 0 18px rgba(50, 212, 255, 0.55),
     0 0 44px rgba(98, 230, 169, 0.24);
+  transition: text-shadow 0.4s ease, color 0.4s ease;
+}
+
+/* 字母點亮狀態 */
+.letter-fill.letter-lit {
+  color: #e8faff;
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.35),
+    0 0 18px rgba(50, 212, 255, 0.55),
+    0 0 40px rgba(50, 212, 255, 0.35),
+    0 0 80px rgba(98, 230, 169, 0.15),
+    0 0 150px rgba(50, 212, 255, 0.05);
+}
+
+/* 全體漸弱：把 transition 拉長到 5 秒 */
+.letter-fill.letter-dimming {
+  transition: text-shadow 5s ease, color 5s ease;
 }
 
 .letter-outline {

@@ -18,5 +18,7 @@ const blogs = [
     { title: "封包的旅程(OSI七層架構)", link: "posts/others005.html", desc: "我們常常在網站上按下\"送出\"後資料就神奇送到對方那裡，但過程封包究竟發生了什麼事?在這幾毫秒之間封包送過去又送回來，中間到底有什麼神奇的秘密?今天就來稍微介紹一下!", img: "bp/others005.png", category: 'cs' }
         ,
     {title: "AI時代衝擊之下該如何站穩腳步?", link: "posts/others006.html", desc: "在AI的衝擊之下，軟體設計的門檻一直被一再降低。我們該做什麼準備來保全自己的不可取代性? 今天就來和大家分享我的淺見，大家可以在看完後一起思考看看~", img: "bp/aigen.jpg", category: 'other' }
+    ,
+    {title: "2026年 CS自學口袋清單", link: "posts/others007.html", desc: "整理2026年 統整出來的優質課程 包含名校線上課 或其他優質影片", img: "bp/goodv.jpg", category: 'other' }
     // 添加更多網誌數據 cpp csharp none python
 ];

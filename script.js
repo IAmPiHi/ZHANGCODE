@@ -30,52 +30,45 @@ initHeroSweep();
 
 function initHeroSweep() {
   const textEl = document.getElementById("animated-text");
-  const heroContent = document.querySelector(".hero-content");
-  if (!textEl || !heroContent || !window.gsap) return;
+  if (!textEl) return;
 
-  // ZHANGCODE 跳完需要 2 秒，在那個時間點建立光束並掃過
-  setTimeout(() => {
-    // 量第一個字母（Z）和最後一個字母（E）的實際位置
-    const firstLetter = textEl.querySelector(".letter-wrapper:first-child");
-    const lastLetter  = textEl.querySelector(".letter-wrapper:last-child");
-    if (!firstLetter || !lastLetter) return;
+  // 等 letterIn 動畫跑完（9 個字 × 0.15s + 0.72s ≈ 2.1s）再開始
+  setTimeout(startLightLoop, 2200);
 
-    const parentRect = heroContent.getBoundingClientRect();
-    const textRect   = textEl.getBoundingClientRect();
-    const startX = firstLetter.getBoundingClientRect().left  - parentRect.left;
-    const endX   = lastLetter.getBoundingClientRect().right  - parentRect.left;
-    const textW  = endX - startX;   // 從 Z 左緣到 E 右緣的實際寬度
+  function startLightLoop() {
+    const fills = Array.from(textEl.querySelectorAll(".letter-fill"));
+    const count = fills.length;          // ZHANGCODE = 9 個字
 
-    const sweep  = document.createElement("div");
-    sweep.className = "hero-sweep";
-    sweep.setAttribute("aria-hidden", "true");
+    const LIGHT_DURATION = 6000;         // 逐字全亮花 6 秒
+    const HOLD_DURATION  = 6000;         // 全亮後停留 6 秒
+    const DIM_DURATION   = 5000;         // 全體漸暗花 5 秒
+    const PAUSE_DURATION = 600;          // 一輪結束後的短暫停頓
 
-    // 橢圓光圈：橫向稍寬（w = h * 1.35）
-    const h      = textRect.height * 3.4;
-    const w      = h * 1.35;
-    const halfW  = w / 2;
-    const halfH  = h / 2;
+    const lightInterval = LIGHT_DURATION / count;   // 每個字亮起的間隔
 
-    sweep.style.width  = `${w}px`;
-    sweep.style.height = `${h}px`;
-    sweep.style.left   = `${startX}px`;
-    sweep.style.top    = `${textRect.top - parentRect.top + textRect.height / 2 - halfH}px`;
+    function runCycle() {
+      // ── Phase 1：從左到右逐字點亮 ──
+      fills.forEach((fill, i) => {
+        setTimeout(() => fill.classList.add("letter-lit"), i * lightInterval);
+      });
 
-    heroContent.appendChild(sweep);
+      // ── Phase 2：全亮後等 1.5 秒，全體同時漸弱 5 秒 ──
+      const dimStart = LIGHT_DURATION + HOLD_DURATION;
+      setTimeout(() => {
+        // 先掛上 5 秒的 transition，再同時移除 letter-lit
+        fills.forEach(fill => fill.classList.add("letter-dimming"));
+        fills.forEach(fill => fill.classList.remove("letter-lit"));
+        // 漸弱跑完後清掉輔助 class
+        setTimeout(() => fills.forEach(fill => fill.classList.remove("letter-dimming")), DIM_DURATION);
+      }, dimStart);
 
-    // 左→右→左 來回掃光，每次到端點停 1.5s
-    gsap.fromTo(sweep,
-      { x: -halfW },
-      {
-        x: textW - halfW,
-        duration: 3.2,
-        ease: "power1.inOut",
-        repeat: -1,       // 無限循環
-        yoyo: true,       // 原路折返（右→左與左→右速度相同）
-        repeatDelay: 1.5, // 每次到端點停 1.5s 再折返
-      }
-    );
-  }, 2000);
+      // ── Phase 3：一輪結束，等短暫停頓後再重頭 ──
+      const cycleTotal = dimStart + DIM_DURATION + PAUSE_DURATION;
+      setTimeout(runCycle, cycleTotal);
+    }
+
+    runCycle();
+  }
 }
 
 function scrollToTop() {
