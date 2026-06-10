@@ -27,18 +27,21 @@ function createProjectCard(project) {
   card.target = "_blank";
   card.rel = "noopener noreferrer";
   card.dataset.repo = project.name;
+  card.style.setProperty("--accent", project.langColor || "var(--cyan)");
+
+  const ogImage = `https://opengraph.githubassets.com/1/${GITHUB_USER}/${project.name}`;
 
   card.innerHTML = `
-    <div class="project-card-left">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="project-icon">
-        <path d="M2 2.5A2.5 2.5 0 0 1 4.5 0h8.75a.75.75 0 0 1 .75.75v12.5a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h1.75v-2h-8a1 1 0 0 0-.714 1.7.75.75 0 1 1-1.072 1.05A2.495 2.495 0 0 1 2 11.5Zm10.5-1h-8a1 1 0 0 0-1 1v6.708A2.486 2.486 0 0 1 4.5 9h8Z"/>
-      </svg>
+    <div class="project-topbar">
+      <span class="code-dots-mini" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="project-path">${GITHUB_USER} / <b>${escapeHtml(project.name)}</b></span>
+      <span class="project-badge">PUBLIC</span>
+    </div>
+    <div class="project-thumb" style="background-image:url('${ogImage}')">
+      <div class="project-thumb-scrim"></div>
     </div>
     <div class="project-card-body">
-      <div class="project-card-header">
-        <span class="project-name">${escapeHtml(project.name)}</span>
-        <span class="project-badge">Public</span>
-      </div>
+      <span class="project-name">${escapeHtml(project.name)}</span>
       <p class="project-desc">${escapeHtml(project.desc)}</p>
       <div class="project-meta">
         <span class="project-lang">
@@ -51,9 +54,9 @@ function createProjectCard(project) {
           </svg>
           ${project.stars}
         </span>
+        <span class="project-link-cue">查看專案 →</span>
       </div>
     </div>
-    <div class="project-card-arrow" aria-hidden="true">→</div>
   `;
 
   return card;
@@ -67,8 +70,8 @@ function animateProjectCards() {
   const cards = [...document.querySelectorAll(".project-card")];
   if (cards.length === 0) return;
 
-  // 初始設為不可見 + 往左偏移
-  gsap.set(cards, { opacity: 0, x: -56 });
+  // 初始設為不可見 + 往下偏移
+  gsap.set(cards, { opacity: 0, y: 36 });
 
   ScrollTrigger.create({
     trigger: "#projects",
@@ -77,7 +80,7 @@ function animateProjectCards() {
     onEnter: () => {
       gsap.to(cards, {
         opacity: 1,
-        x: 0,
+        y: 0,
         duration: 0.67,
         stagger: 0.14,       // 每張卡片間隔 0.14s 依序飛入
         ease: "power3.out",

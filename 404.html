@@ -2,121 +2,230 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="LOGO.ico" type="image/x-icon">
-  <title>找不到頁面(404)</title>
+  <title>404 · 找不到頁面 | ZHANGCODE</title>
+  <script>
+    // 與全站共用主題設定
+    (function () {
+      try {
+        var saved = localStorage.getItem("zhangcode-theme");
+        var preferLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        if (saved === "light" || (!saved && preferLight)) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      } catch (_) {}
+    })();
+  </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #081015;
+      --line: rgba(255, 255, 255, 0.16);
+      --text: #f4f7fb;
+      --muted: #a9b8c6;
+      --cyan: #32d4ff;
+      --green: #62e6a9;
+      --rose: #ff7a9a;
+      color-scheme: dark;
     }
 
-    body, html {
-      width: 100%;
-      height: 100%;
+    html[data-theme="light"] {
+      --bg: #d8e0e6;
+      --line: rgba(15, 30, 38, 0.16);
+      --text: #16242c;
+      --muted: #45545e;
+      --cyan: #0a7fa6;
+      --green: #1f8a63;
+      --rose: #c63b62;
+      color-scheme: light;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: "Segoe UI", Roboto, "Noto Sans TC", Arial, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(135deg, rgba(50, 212, 255, 0.1), transparent 30%),
+        linear-gradient(315deg, rgba(98, 230, 169, 0.08), transparent 35%),
+        var(--bg);
       overflow: hidden;
-      background-color: #0f0f0f;
-      font-family: 'Orbitron', monospace;
-      color: #00ffea;
     }
 
-    .glitch-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        #0f0f0f 0px,
-        #0f0f0f 2px,
-        #111111 3px,
-        #111111 4px
-      );
-      z-index: 0;
-      animation: glitch-bg 0.3s infinite;
-      opacity: 0.8;
+    /* 網格背景（與首頁一致） */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
       pointer-events: none;
-    }
-
-    @keyframes glitch-bg {
-      0% {
-        transform: translate(0, 0);
-      }
-      20% {
-        transform: translate(2px, -1px);
-      }
-      40% {
-        transform: translate(-1px, 2px);
-      }
-      60% {
-        transform: translate(1px, 1px);
-      }
-      80% {
-        transform: translate(-2px, -1px);
-      }
-      100% {
-        transform: translate(0, 0);
-      }
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.35;
+      mask-image: radial-gradient(circle at 50% 45%, black, transparent 70%);
     }
 
     .container {
       position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       text-align: center;
+      max-width: 560px;
     }
 
-    h1 {
-      font-size: 6rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffff;
+    .logo {
+      display: inline-block;
+      margin-bottom: 34px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-decoration: none;
     }
 
-    h5 {
-      font-size: 1.3rem;
-      color: #88ffff;
-      line-height: 1.8;
-      text-shadow: 0 0 5px #00ffff;
+    .logo::first-letter { color: var(--cyan); }
+
+    /* ── Glitch 404 ── */
+    .glitch {
+      position: relative;
+      font-size: clamp(5rem, 22vw, 9.5rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-shadow: 0 0 40px rgba(50, 212, 255, 0.35);
+      animation: flicker 5s infinite;
     }
 
-    /* 小抖動畫 */
-    .glitch-text {
-      animation: flicker 5s infinite, shift 2s infinite;
+    .glitch::before,
+    .glitch::after {
+      content: "404";
+      position: absolute;
+      inset: 0;
+      opacity: 0.8;
+    }
+
+    .glitch::before {
+      color: var(--cyan);
+      z-index: -1;
+      animation: shiftA 2.4s infinite steps(2, jump-none);
+    }
+
+    .glitch::after {
+      color: var(--rose);
+      z-index: -2;
+      animation: shiftB 3.1s infinite steps(2, jump-none);
+    }
+
+    @keyframes shiftA {
+      0%, 100% { transform: translate(0, 0); }
+      20% { transform: translate(-5px, 2px); }
+      40% { transform: translate(3px, -2px); }
+      60% { transform: translate(-2px, 3px); }
+      80% { transform: translate(4px, -1px); }
+    }
+
+    @keyframes shiftB {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(4px, -2px); }
+      50% { transform: translate(-3px, 2px); }
+      75% { transform: translate(2px, 3px); }
     }
 
     @keyframes flicker {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-      }
-      20%, 24%, 55% {
-        opacity: 0.5;
-      }
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+      20%, 24%, 55% { opacity: 0.6; }
     }
 
-    @keyframes shift {
-      0% { transform: translate(0, 0); }
-      33% { transform: translate(-6px, 3px); }
-      66% { transform: translate(2px, -6px); }
-      100% { transform: translate(0, 0); }
+    .eyebrow {
+      margin: 26px 0 10px;
+      color: var(--green);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 0.96rem;
+    }
+
+    p kbd {
+      padding: 1px 7px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: rgba(127, 127, 127, 0.12);
+      font-family: Consolas, monospace;
+      font-size: 0.85em;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      font-weight: 800;
+      font-size: 0.93rem;
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn-primary {
+      color: #031016;
+      background: var(--cyan);
+      border-color: var(--cyan);
+    }
+
+    html[data-theme="light"] .btn-primary { color: #ffffff; }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(127, 127, 127, 0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
+      box-shadow: 0 0 24px rgba(50, 212, 255, 0.22);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
     }
   </style>
 </head>
 <body>
-  <div class="glitch-bg"></div>
   <div class="container">
-    <h1 class="glitch-text">404 錯誤 :(</h1>
-    <h5 class="glitch-text">
-      你要找的頁面，不存在喔!!!<br>
-      也有可能是網頁在更新中吧~<br>
-      等等重刷 <kbd>CTRL</kbd> + <kbd>F5</kbd> 看看!
-    </h5>
+    <a class="logo" href="/">ZHANGCODE</a>
+    <div class="glitch" aria-label="404">404</div>
+    <p class="eyebrow">Page Not Found</p>
+    <h2>你要找的頁面不存在喔！</h2>
+    <p>也可能是網頁正在更新中～<br>可以按 <kbd>CTRL</kbd> + <kbd>F5</kbd> 重新整理試試。</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/">回到首頁</a>
+      <a class="btn btn-secondary" href="/#blogs">瀏覽文章</a>
+    </div>
   </div>
 </body>
 </html>

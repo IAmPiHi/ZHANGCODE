@@ -24,9 +24,10 @@ const pageInfo = document.getElementById("page-info");
 const orderedBlogs = Array.isArray(blogs) ? [...blogs].reverse() : [];
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
   bindEvents();
   renderBlogs();
-  initScrollEffects();
+  // 場景滾動編排已移交 cinema.js，本檔只負責文章資料邏輯與卡片動畫
 });
 
 function bindEvents() {
@@ -43,6 +44,27 @@ function bindEvents() {
   clearButton?.addEventListener("click", clearSearch);
   searchInput?.addEventListener("keydown", (event) => {
     if (event.key === "Enter") applySearch();
+    if (event.key === "Escape") {
+      clearSearch();
+      searchInput.blur();
+    }
+  });
+
+  // 即時搜尋：邊打邊過濾（180ms debounce，不用再按搜尋鈕）
+  let _searchDebounce;
+  searchInput?.addEventListener("input", () => {
+    clearTimeout(_searchDebounce);
+    _searchDebounce = setTimeout(applySearch, 180);
+  });
+
+  // 按「/」快速聚焦搜尋框（輸入框內不觸發）
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) return;
+    const tag = document.activeElement?.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || document.activeElement?.isContentEditable) return;
+    event.preventDefault();
+    searchInput?.focus();
+    searchInput?.select();
   });
 
   prevButton?.addEventListener("click", () => changePage(-1));
@@ -95,13 +117,73 @@ function renderBlogs() {
 
   updatePagination(totalPages, filteredBlogs.length);
 
-  // 觸發卡片進場動畫，並刷新 ScrollTrigger 位置
+  // 觸發卡片進場動畫
   const isFirst = _isFirstBlogRender;
   _isFirstBlogRender = false;
   requestAnimationFrame(() => {
     animateBlogCards(isFirst);
-    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    lockBlogGridHeight();
+    maybeRefreshTriggers();
   });
+}
+
+// ── 文章網格高度鎖定 ─────────────────────────────────────────
+// 策略說明：換頁/搜尋會增減卡片，若頁面總高度跟著變，理論上要
+// 全頁 ScrollTrigger.refresh()；但 refresh 與「釘住的 Hero」互動
+// 非常脆弱（量測時機稍有閃失就會出現頂部空白、動畫全滅）。
+// 折衷：以滿頁卡片的高度鎖住網格 min-height → 頁面總高度恆定
+// → 正常操作下完全不需要 refresh，從根本杜絕問題。
+function lockBlogGridHeight() {
+  if (!blogContainer) return;
+  if (!blogContainer.style.minHeight && blogContainer.offsetHeight > 0) {
+    blogContainer.style.minHeight = blogContainer.offsetHeight + "px";
+  }
+}
+
+// 視窗尺寸改變時重新鎖定（ScrollTrigger 本來就會在 resize 自動刷新）
+let _gridResizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(_gridResizeTimer);
+  _gridResizeTimer = setTimeout(() => {
+    if (!blogContainer) return;
+    blogContainer.style.minHeight = "";
+    requestAnimationFrame(lockBlogGridHeight);
+  }, 200);
+});
+
+// ── 保險絲：僅在頁面總高度「真的變了」才安排刷新（罕見情況）──
+let _lastDocHeight = 0;
+function maybeRefreshTriggers() {
+  const h = document.documentElement.scrollHeight;
+  if (_lastDocHeight === 0) {
+    _lastDocHeight = h; // 首次渲染：記錄基準
+    return;
+  }
+  if (h !== _lastDocHeight) {
+    _lastDocHeight = h;
+    scheduleScrollTriggerRefresh();
+  }
+}
+
+// 等捲動完全靜止才刷新（連續兩次取樣相同 = 靜止）。
+// 另外：若使用者正位於頂部 Hero 釘住區附近，直接放棄這次刷新 ——
+// 在釘住邊界上拆裝 pin 結構會在標題上方留下空白區塊；
+// 而刷新的目的只是校正「下方」區塊的觸發點，在頂部時本來就不需要。
+let _stRefreshTimer;
+function scheduleScrollTriggerRefresh() {
+  if (!window.ScrollTrigger) return;
+  clearTimeout(_stRefreshTimer);
+  let lastY = -1;
+  const check = () => {
+    const y = window.scrollY;
+    if (y === lastY) {
+      if (y > window.innerHeight * 2.3) ScrollTrigger.refresh();
+      return;
+    }
+    lastY = y;
+    _stRefreshTimer = setTimeout(check, 220);
+  };
+  _stRefreshTimer = setTimeout(check, 220);
 }
 
 // ── Blog 卡片進場動畫 ─────────────────────────────────────────
@@ -206,114 +288,6 @@ function updateActiveFilterButton() {
   document.querySelectorAll(".filter-btn").forEach((button) => {
     button.classList.toggle("active", button.dataset.category === currentCategory);
   });
-}
-
-// ── Scroll 動畫總系統 ─────────────────────────────────────────
-function initScrollEffects() {
-  if (!window.gsap || !window.ScrollTrigger) return;
-  gsap.registerPlugin(ScrollTrigger);
-
-  // 1. Section 整體淡入（start: "top bottom" 確保短頁面也能觸發）
-  gsap.utils.toArray(".section-fade").forEach((section) => {
-    gsap.fromTo(section,
-      { opacity: 0, y: 34 },
-      {
-        opacity: 1, y: 0,
-        duration: 0.85,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top bottom",
-          once: true,   // 只播一次，ScrollTrigger.refresh() 不會重播造成閃爍
-        },
-      }
-    );
-  });
-
-  // 2. Section 標題動畫：eyebrow 從左滑入 → h2 從下升起
-  gsap.utils.toArray(".section-heading").forEach((heading) => {
-    const eyebrow = heading.querySelector(".eyebrow");
-    const h2 = heading.querySelector("h2");
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: heading, start: "top 87%", once: true },
-    });
-    if (eyebrow) {
-      tl.fromTo(eyebrow,
-        { x: -28, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.55, ease: "power2.out" }
-      );
-    }
-    if (h2) {
-      tl.fromTo(h2,
-        { y: 22, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.67, ease: "power2.out", clearProps: "all" },
-        "-=0.2"
-      );
-    }
-  });
-
-  // 3. About：code block 從左飛入、profile panel 從右飛入
-  const codeBlock = document.querySelector(".about-text-container");
-  const profilePanel = document.querySelector(".profile-panel");
-  const aboutLayout = document.querySelector("#about .about-layout");
-  if (aboutLayout) {
-    if (codeBlock) {
-      gsap.fromTo(codeBlock,
-        { opacity: 0, x: -48 },
-        {
-          opacity: 1, x: 0, duration: 0.75, ease: "power3.out", clearProps: "all",
-          scrollTrigger: { trigger: aboutLayout, start: "top 82%", once: true },
-        }
-      );
-    }
-    if (profilePanel) {
-      gsap.fromTo(profilePanel,
-        { opacity: 0, x: 48 },
-        {
-          opacity: 1, x: 0, duration: 0.75, ease: "power3.out", delay: 0.12, clearProps: "all",
-          scrollTrigger: { trigger: aboutLayout, start: "top 82%", once: true },
-        }
-      );
-    }
-  }
-
-  // 4. Hero 數據卡片：依序從下方彈入（hero 已在視野內，頁面載入後執行）
-  const metrics = [...document.querySelectorAll(".hero-metrics div")];
-  if (metrics.length) {
-    // metricPulse CSS animation 的 cascade 層級高於 inline style，
-    // 會蓋掉 GSAP 的 transform（scale）。先把它砍掉讓 GSAP 主導，
-    // 等入場動畫結束後再還原。
-    // ZHANGCODE 時間線：9字 × 0.15s delay + 0.72s 動畫 = 最後一字 1.92s 結束
-    metrics.forEach((el, i) => {
-      el.style.animation = "none";                          // 暫時關掉 CSS pulse
-      gsap.set(el, { opacity: 0, scale: 0.05, transformOrigin: "50% 50%" });
-
-      gsap.timeline({ delay: 1.92 + i * 0.42 })
-        .to(el, { opacity: 1, scale: 1.2, duration: 0.28, ease: "power2.out" })  // 衝出
-        .to(el, { scale: 1,   duration: 0.20, ease: "power2.in" })               // 彈回
-        .call(() => {
-          gsap.set(el, { clearProps: "all" }); // 清掉 GSAP inline style
-          el.style.animation = "";             // 還原 CSS metricPulse
-        });
-    });
-  }
-
-  // 5. Contact：mail link 從下彈入
-  const mailLink = document.querySelector(".mail-link");
-  if (mailLink) {
-    gsap.fromTo(mailLink,
-      { opacity: 0, y: 18 },
-      {
-        opacity: 1, y: 0, duration: 0.65, ease: "power2.out", clearProps: "all",
-        scrollTrigger: {
-          trigger: mailLink,
-          start: "top bottom",       // 同樣改成進入視窗即觸發
-          once: true,
-          invalidateOnRefresh: true,
-        },
-      }
-    );
-  }
 }
 
 // ── 工具函式 ──────────────────────────────────────────────────
