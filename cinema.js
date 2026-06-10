@@ -27,8 +27,8 @@
     contact: "05 · 聯繫",
   };
 
-  /* 代碼雨字符集（about 場景） */
-  var GLYPHS = "アィウェオカキクヶコサシスセソタチツ01<>#+*=$&%ZHC";
+  /* 代碼雨字符集（about 場景）：中文 + 程式符號 */
+  var GLYPHS = "程式碼資料演算邏輯函式變數迴圈陣列指標01<>#+*=$&%ZHANGCODE";
 
   /* 全域：logo 與頁尾按鈕的 onclick 會呼叫 */
   window.scrollToTop = function () {
@@ -103,12 +103,21 @@
       this.canvas.height = Math.floor(this.h * ratio);
       this.ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-      var count = MOBILE ? 48 : Math.min(130, Math.max(64, Math.floor(this.w / 13)));
+      var count = MOBILE ? 38 : Math.min(100, Math.max(52, Math.floor(this.w / 17)));
       this.particles.length = 0;
+
+      // 分層佈點（stratified sampling）：把畫面切成 cols×rows 格，
+      // 每格放一顆 + 格內隨機抖動 → 初始分布即視覺均勻，
+      // 不會像純隨機那樣天生帶有疏密叢塊
+      var cols = Math.max(2, Math.round(Math.sqrt(count * this.w / Math.max(1, this.h))));
+      var rows = Math.max(2, Math.ceil(count / cols));
+
       for (var i = 0; i < count; i += 1) {
+        var gc = i % cols;
+        var gr = (i / cols) | 0;
         this.particles.push({
-          x: Math.random() * this.w,
-          y: Math.random() * this.h,
+          x: ((gc + Math.random()) / cols) * this.w,
+          y: ((gr % rows + Math.random()) / rows) * this.h,
           z: 0.35 + Math.random() * 0.65,          // 深度（視差/大小/速度）
           vx: (Math.random() - 0.5) * 0.4,
           vy: (Math.random() - 0.5) * 0.4,
@@ -129,6 +138,26 @@
     },
 
     lerp: function (a, b, t) { return a + (b - a) * t; },
+
+    /* 最稀疏帶選位：回傳該帶內的隨機座標，並把計數 +1
+       （避免同一幀多顆重生全擠進同一帶） */
+    sparseX: function () {
+      var c = this.colC;
+      if (!c) return Math.random() * this.w;
+      var mi = 0;
+      for (var i = 1; i < c.length; i += 1) if (c[i] < c[mi]) mi = i;
+      c[mi] += 1;
+      return ((mi + Math.random()) / c.length) * this.w;
+    },
+
+    sparseY: function () {
+      var r = this.rowC;
+      if (!r) return Math.random() * this.h;
+      var mi = 0;
+      for (var i = 1; i < r.length; i += 1) if (r[i] < r[mi]) mi = i;
+      r[mi] += 1;
+      return ((mi + Math.random()) / r.length) * this.h;
+    },
 
     tick: function () {
       var t = 0.035; // 過渡平滑度
@@ -199,6 +228,21 @@
 
       var pts = this.particles, i, p;
 
+      // ── 密度直方圖：供「換邊重生」挑選最稀疏的帶 ──
+      // 流動型場景（橫向資料流、直落代碼雨、曲速擴散）會讓粒子
+      // 逐漸聚集到某側；透過直方圖讓離場的粒子永遠補進最稀疏
+      // 的區域，分布持續自我均勻化，且不受特效切換影響。
+      var XB = 6, YB = 4;
+      var colC = this.colC || (this.colC = new Array(XB));
+      var rowC = this.rowC || (this.rowC = new Array(YB));
+      for (i = 0; i < XB; i += 1) colC[i] = 0;
+      for (i = 0; i < YB; i += 1) rowC[i] = 0;
+      for (i = 0; i < pts.length; i += 1) {
+        p = pts[i];
+        colC[Math.min(XB - 1, Math.max(0, (p.x / w * XB) | 0))] += 1;
+        rowC[Math.min(YB - 1, Math.max(0, (p.y / h * YB) | 0))] += 1;
+      }
+
       // ── 移動：基礎漂移 + 場景專屬行為（轉場時新舊行為加權混合）──
       for (i = 0; i < pts.length; i += 1) {
         p = pts[i];
@@ -215,9 +259,11 @@
           p.y += (p.y - cy) * 0.012 * warp * p.z;
         }
 
-        // 邊界環繞
-        if (p.x < -40) p.x = w + 38; else if (p.x > w + 40) p.x = -38;
-        if (p.y < -40) p.y = h + 38; else if (p.y > h + 40) p.y = -38;
+        // 邊界環繞：從對側進場，且進場座標選在最稀疏的帶
+        if (p.x > w + 40)      { p.x = -38;    p.y = this.sparseY(); }
+        else if (p.x < -40)    { p.x = w + 38; p.y = this.sparseY(); }
+        if (p.y > h + 40)      { p.y = -38;    p.x = this.sparseX(); }
+        else if (p.y < -40)    { p.y = h + 38; p.x = this.sparseX(); }
       }
 
       // ── 霓虹疊加模式：重疊的光會相加，更有放射感 ──
@@ -245,12 +291,12 @@
     applyBehavior: function (mode, p, k, cx, cy, time) {
       if (k <= 0) return;
       switch (mode) {
-        case "about": // 代碼雨：直落 + 微幅搖擺
-          p.y += (0.65 + p.z * 1.55) * k;
+        case "about": // 代碼雨：直落 + 微幅搖擺（放慢）
+          p.y += (0.42 + p.z * 0.95) * k;
           p.x += Math.sin(time * 0.8 + p.phase) * 0.06 * k;
           break;
-        case "activity": // 資料流：橫向掃過
-          p.x += (1.1 + p.z * 1.8) * k;
+        case "activity": // 資料流：橫向掃過（放慢）
+          p.x += (0.7 + p.z * 1.15) * k;
           p.y += Math.sin(time * 1.3 + p.phase) * 0.18 * k;
           break;
         case "blogs": // 餘燼：上飄 + 搖曳（文章區加強版）
@@ -259,7 +305,7 @@
           break;
         case "contact": // 環繞：各自以固定半徑繞中心旋轉（不向內縮）
           var dx = p.x - cx, dy = p.y - cy;
-          var ang = 0.0035 * k * (0.4 + p.z * 0.6); // 角速度（深度越深轉越快）
+          var ang = 0.0016 * k * (0.4 + p.z * 0.6); // 角速度（深度越深轉越快）
           var ca = Math.cos(ang), sa = Math.sin(ang);
           p.x = cx + dx * ca - dy * sa;
           p.y = cy + dx * sa + dy * ca;
@@ -335,14 +381,16 @@
       var alpha = (0.35 + p.z * 0.5) * weight;
 
       // 曲速 / 快速滾動 → 拉絲（所有場景共用，優先權最高）
-      if (warp > 0.04) {
-        var wx = (p.x - cx) * 0.26 * warp * p.z;
-        var wy = (p.y - cy) * 0.26 * warp * p.z;
+      // 拉絲長度與透明度都乘上 warp 平滑漸入，並把整體長度減半、
+      // 透明度降低 —— 避免快速滾動時放射線過密（視覺暫留像一片線海）
+      if (warp > 0.1) {
+        var wx = (p.x - cx) * 0.13 * warp * p.z;
+        var wy = (p.y - cy) * 0.13 * warp * p.z;
         ctx.beginPath();
-        ctx.moveTo(px - wx, py - wy - sv * 1.2 * p.z);
+        ctx.moveTo(px - wx, py - wy - sv * 0.6 * p.z);
         ctx.lineTo(px, py);
-        ctx.strokeStyle = this.rgba(col, alpha);
-        ctx.lineWidth = p.r;
+        ctx.strokeStyle = this.rgba(col, alpha * 0.55 * Math.min(1, warp + 0.3));
+        ctx.lineWidth = p.r * 0.85;
         ctx.lineCap = "round";
         ctx.stroke();
         return;
@@ -389,25 +437,25 @@
         case "blogs": // ── 餘燼：高亮三層光暈 + 白熱亮核 + 火花 ──
           // 閃爍下限拉高（0.65），確保任何時刻都有足夠存在感
           var flick = 0.65 + 0.35 * Math.sin(time * 2.6 + p.phase * 5);
-          var ea = Math.min(1, alpha * 2) * flick;
-          // 第一層：大範圍柔光暈
+          var ea = Math.min(1, alpha * 1.7) * flick;
+          // 第一層：柔光暈（回到正常尺寸，亮度保留）
           ctx.beginPath();
-          ctx.arc(px, py, p.r * (4 + p.z * 2.2), 0, Math.PI * 2);
+          ctx.arc(px, py, p.r * (2.5 + p.z), 0, Math.PI * 2);
           ctx.fillStyle = this.rgba(col, ea * 0.18);
           ctx.fill();
           // 第二層：中層色暈
           ctx.beginPath();
-          ctx.arc(px, py, p.r * 1.9, 0, Math.PI * 2);
+          ctx.arc(px, py, p.r * 1.4, 0, Math.PI * 2);
           ctx.fillStyle = this.rgba(col, ea * 0.5);
           ctx.fill();
           // 第三層：白熱亮核
           ctx.beginPath();
-          ctx.arc(px, py, p.r * (0.9 + p.z * 0.5), 0, Math.PI * 2);
+          ctx.arc(px, py, p.r * (0.8 + p.z * 0.4), 0, Math.PI * 2);
           ctx.fillStyle = this.rgba([255, 240, 200], Math.min(1, ea * 1.15));
           ctx.fill();
-          // 火花十字（門檻降低 → 更多顆會冒火花）
-          if (p.r > 1.2) {
-            var s = 6 + p.z * 8;
+          // 火花十字
+          if (p.r > 1.45) {
+            var s = 4 + p.z * 5;
             ctx.strokeStyle = this.rgba(col, ea * 0.9);
             ctx.lineWidth = 1;
             ctx.beginPath();

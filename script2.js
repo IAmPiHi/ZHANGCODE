@@ -122,34 +122,14 @@ function renderBlogs() {
   _isFirstBlogRender = false;
   requestAnimationFrame(() => {
     animateBlogCards(isFirst);
-    lockBlogGridHeight();
     maybeRefreshTriggers();
   });
 }
 
-// ── 文章網格高度鎖定 ─────────────────────────────────────────
-// 策略說明：換頁/搜尋會增減卡片，若頁面總高度跟著變，理論上要
-// 全頁 ScrollTrigger.refresh()；但 refresh 與「釘住的 Hero」互動
-// 非常脆弱（量測時機稍有閃失就會出現頂部空白、動畫全滅）。
-// 折衷：以滿頁卡片的高度鎖住網格 min-height → 頁面總高度恆定
-// → 正常操作下完全不需要 refresh，從根本杜絕問題。
-function lockBlogGridHeight() {
-  if (!blogContainer) return;
-  if (!blogContainer.style.minHeight && blogContainer.offsetHeight > 0) {
-    blogContainer.style.minHeight = blogContainer.offsetHeight + "px";
-  }
-}
-
-// 視窗尺寸改變時重新鎖定（ScrollTrigger 本來就會在 resize 自動刷新）
-let _gridResizeTimer;
-window.addEventListener("resize", () => {
-  clearTimeout(_gridResizeTimer);
-  _gridResizeTimer = setTimeout(() => {
-    if (!blogContainer) return;
-    blogContainer.style.minHeight = "";
-    requestAnimationFrame(lockBlogGridHeight);
-  }, 200);
-});
+// 註：原本用 min-height 鎖定網格高度避免 refresh，但鎖定會把
+// 不滿一列的卡片拉高。改回讓容器自然縮放；頁面高度變化由
+// maybeRefreshTriggers（靜止 + 遠離頂部才刷新）處理，Hero 釘住
+// 另有 cinema.js 的自癒巡邏保護。
 
 // ── 保險絲：僅在頁面總高度「真的變了」才安排刷新（罕見情況）──
 let _lastDocHeight = 0;
