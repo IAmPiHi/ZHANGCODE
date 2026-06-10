@@ -871,7 +871,10 @@
             transformOrigin: "50% 0%",
           },
           {
-            clipPath: "inset(0% 0% 0% 0% round 12px)",
+            // 終值用「負值外擴」而非 inset(0)：refresh 隨時可能讓
+            // 此 tween 以終值重新覆寫，若終值貼齊邊框，跨在邊框上
+            // 的場景標籤就會再次被切掉 —— 外擴後永遠切不到。
+            clipPath: "inset(-4% -3% -4% -3% round 12px)",
             scale: 1,
             autoAlpha: 1,
             rotationX: 0,
@@ -884,6 +887,16 @@
             },
           }
         );
+
+        // 過場完成後解除 clip-path —— 否則 inset(0) 會沿邊框永久
+        // 裁切，把跨在邊框上的場景標籤（SCENE 0x）和陰影切掉。
+        // 往回滑入過場區之前再重新套上，接縫處視覺無感。
+        ScrollTrigger.create({
+          trigger: scene,
+          start: "top 50%",
+          onEnter: function () { shell.style.clipPath = "none"; },
+          onLeaveBack: function () { shell.style.clipPath = "inset(-4% -3% -4% -3% round 12px)"; },
+        });
 
         // 退場：改為「純位移視差」，完全不碰透明度。
         // （舊版 gsap.to 同時動 autoAlpha，會把頁面載入時的
